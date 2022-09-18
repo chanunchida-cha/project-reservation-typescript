@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const partnerController_1 = require("./../controller/partnerController");
+const express_1 = require("express");
+const router = (0, express_1.Router)();
+const upload = require("../middleware/upload");
+const auth = require("../middleware/auth");
+router.route("/get-all-info").get(partnerController_1.getAllInfoRestaurant);
+router.route("/get-info").get(auth, partnerController_1.getInfoRestaurantById);
+router.route("/create-info").post(auth, upload, partnerController_1.createInfoRestaurant);
+router.route("/update-info").put(upload, auth, partnerController_1.updateInfoRestaurant);
+exports.default = router;
