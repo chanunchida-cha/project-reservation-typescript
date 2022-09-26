@@ -454,13 +454,13 @@ const EditInformation = observer(() => {
                   <EditAllDay
                     timeLength={timeLength}
                     onTimeLengthChange={setTimeLength}
-                    days={days}
+               
                     openDay={openDay}
                     onChangeValue={setOpenDay}
                   />
                 ) : (
                   <EditRound
-                    days={days}
+                
                     openDay={openDay}
                     onChangeValue={setOpenDay}
                     inputFields={inputFields}

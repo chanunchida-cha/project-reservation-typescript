@@ -1,37 +1,36 @@
 import React, { ChangeEvent, MouseEvent, FormEvent } from "react";
 import TextField from "@mui/material/TextField";
-type DaysProps = {
-  days: readonly [
-    {
-      key: "monday";
-      i18n: "วันจันทร์";
-    },
-    {
-      key: "tuesday";
-      i18n: "วันอังคาร";
-    },
-    {
-      key: "wednesday";
-      i18n: "วันพุธ";
-    },
-    {
-      key: "thursday";
-      i18n: "วันพฤหัสบดี";
-    },
-    {
-      key: "friday";
-      i18n: "วันศุกร์";
-    },
-    {
-      key: "saturday";
-      i18n: "วันเสาร์";
-    },
-    {
-      key: "sunday";
-      i18n: "วันอาทิตย์";
-    }
-  ];
-};
+
+const days = [
+  {
+    key: "monday",
+    i18n: "วันจันทร์",
+  },
+  {
+    key: "tuesday",
+    i18n: "วันอังคาร",
+  },
+  {
+    key: "wednesday",
+    i18n: "วันพุธ",
+  },
+  {
+    key: "thursday",
+    i18n: "วันพฤหัสบดี",
+  },
+  {
+    key: "friday",
+    i18n: "วันศุกร์",
+  },
+  {
+    key: "saturday",
+    i18n: "วันเสาร์",
+  },
+  {
+    key: "sunday",
+    i18n: "วันอาทิตย์",
+  },
+] as const;
 type OpenDay = {
   openDay: {
     monday: {
@@ -106,8 +105,7 @@ type HandleRemoveFields = {
   handleRemoveFields: (index: number) => void;
 };
 function EditRound(
-  props: DaysProps &
-    OpenDay &
+  props: OpenDay &
     OnChangeValue &
     InputFieldsProps &
     HandleChangeInput &
@@ -115,7 +113,6 @@ function EditRound(
     HandleRemoveFields
 ) {
   const {
-    days,
     openDay,
     onChangeValue,
     inputFields,

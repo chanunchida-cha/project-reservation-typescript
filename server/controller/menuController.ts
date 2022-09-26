@@ -91,6 +91,19 @@ export const getMenuByRest = (req: Request, res: Response) => {
       console.log(err);
     });
 };
+export const getMenuByRestId = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  await menus
+    .find({
+      partner_id: mongoose.Types.ObjectId(id),
+    })
+    .then((response: Menu[]) => {
+      res.json(response);
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
+};
 
 export const getMenuById = (req: Request, res: Response) => {
   const { id } = req.params;
@@ -103,15 +116,15 @@ export const getMenuById = (req: Request, res: Response) => {
   });
 };
 
-export const deleteMenu = (req:Request, res:Response) => {
-    const { id } = req.params;
-    menus.findByIdAndDelete(id, (err:any) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.status(200).json({
-          status: "delete success",
-        });
-      }
-    });
-  };
+export const deleteMenu = (req: Request, res: Response) => {
+  const { id } = req.params;
+  menus.findByIdAndDelete(id, (err: any) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json({
+        status: "delete success",
+      });
+    }
+  });
+};

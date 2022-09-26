@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTable = exports.getTableById = exports.getTableByRest = exports.updateTable = exports.createTable = void 0;
+exports.deleteTable = exports.getTableById = exports.getTableByRestId = exports.getTableByRest = exports.updateTable = exports.createTable = void 0;
 const { mongoose } = require("mongoose");
 const tables = require("../models/tableDB");
 const createTable = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -75,6 +75,20 @@ const getTableByRest = (req, res) => {
     });
 };
 exports.getTableByRest = getTableByRest;
+const getTableByRestId = (req, res) => {
+    const { id } = req.params;
+    tables
+        .find({
+        partner_id: mongoose.Types.ObjectId(id),
+    })
+        .then((response) => {
+        res.json(response);
+    })
+        .catch((err) => {
+        console.log(err);
+    });
+};
+exports.getTableByRestId = getTableByRestId;
 const getTableById = (req, res) => {
     const { id } = req.params;
     tables.findById(id, (err, table) => {

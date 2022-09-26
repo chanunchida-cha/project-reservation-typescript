@@ -10,6 +10,11 @@ import tableRoute from "./routes/tableRoute";
 import menuRoute from "./routes/menuRoute";
 import alldayReservRoute from "./routes/alldayReservRoute";
 import roundReservRoute from "./routes/roundReservRoute";
+import historyReservRoute from "./routes/historyReservRoute";
+import customerRoute from "./routes/customerRoute";
+import adminRoute from "./routes/adminRoute";
+import reportPartnerRoute from "./routes/reportPartnerRoute";
+import reportAdminRoute from "./routes/reportAdminRoute";
 
 require("dotenv").config();
 
@@ -37,12 +42,17 @@ app.use(morgan());
 //route
 app.use("/register", registerRoute);
 app.use("/auth", authRoute);
+app.use("/customer", customerRoute);
+app.use("/admin", adminRoute);
 app.use("/rud", rudUserRoute);
 app.use("/partner", partnerRoute);
 app.use("/table", tableRoute);
 app.use("/menu", menuRoute);
 app.use("/reserv", alldayReservRoute);
 app.use("/reserv", roundReservRoute);
+app.use("/history", historyReservRoute);
+app.use("/report", reportPartnerRoute);
+app.use("/report", reportAdminRoute);
 app.use("/uploads", express.static("uploads"));
 
 app.listen(port, () => {

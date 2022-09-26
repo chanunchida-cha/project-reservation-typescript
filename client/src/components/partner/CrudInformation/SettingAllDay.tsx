@@ -4,38 +4,7 @@ import TextField from "@mui/material/TextField";
 type TimeLengthProps = {
   timeLength: string;
 };
-type DaysProps = {
-   days:readonly [
-    {
-      key: "monday";
-      i18n: "วันจันทร์";
-    },
-    {
-      key: "tuesday";
-      i18n: "วันอังคาร";
-    },
-    {
-      key: "wednesday";
-      i18n: "วันพุธ";
-    },
-    {
-      key: "thursday";
-      i18n: "วันพฤหัสบดี";
-    },
-    {
-      key: "friday";
-      i18n: "วันศุกร์";
-    },
-    {
-      key: "saturday";
-      i18n: "วันเสาร์";
-    },
-    {
-      key: "sunday";
-      i18n: "วันอาทิตย์";
-    }
-  ];
-};
+
 type OnTimeLengthChange = {
   onTimeLengthChange: (timerlength: string) => void;
 };
@@ -119,15 +88,44 @@ type OnChangeValue = {
     };
   }) => void;
 };
-
+const days = [
+  {
+    key: "monday",
+    i18n: "วันจันทร์",
+  },
+  {
+    key: "tuesday",
+    i18n: "วันอังคาร",
+  },
+  {
+    key: "wednesday",
+    i18n: "วันพุธ",
+  },
+  {
+    key: "thursday",
+    i18n: "วันพฤหัสบดี",
+  },
+  {
+    key: "friday",
+    i18n: "วันศุกร์",
+  },
+  {
+    key: "saturday",
+    i18n: "วันเสาร์",
+  },
+  {
+    key: "sunday",
+    i18n: "วันอาทิตย์",
+  },
+] as const;
 function SettingAllDay(
   props: TimeLengthProps &
-    DaysProps &
+    
     OnTimeLengthChange &
     OpenDay &
     OnChangeValue
 ) {
-  const { timeLength, onTimeLengthChange, days, openDay, onChangeValue } =
+  const { timeLength, onTimeLengthChange,  openDay, onChangeValue } =
     props;
 
   return (

@@ -8,10 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getInfoRestaurantById = exports.getAllInfoRestaurant = exports.updateInfoRestaurant = exports.createInfoRestaurant = void 0;
+exports.resetPassword = exports.getInfoRestaurantById = exports.getInfoRestaurantByRest = exports.getAllInfoRestaurant = exports.updateInfoRestaurant = exports.createInfoRestaurant = void 0;
 const restaurants = require("../models/restaurantDB");
 const { mongoose } = require("mongoose");
+const bcrypt = require("bcrypt");
+const partnerDB_1 = __importDefault(require("../models/partnerDB"));
 //----------------------------information------------------------------------------------------------------
 const createInfoRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
@@ -128,7 +133,7 @@ const getAllInfoRestaurant = (req, res) => {
     });
 };
 exports.getAllInfoRestaurant = getAllInfoRestaurant;
-const getInfoRestaurantById = (req, res) => {
+const getInfoRestaurantByRest = (req, res) => {
     var _a;
     const id = (_a = req.user) === null || _a === void 0 ? void 0 : _a.partner_id;
     restaurants
@@ -157,4 +162,61 @@ const getInfoRestaurantById = (req, res) => {
         console.log(err);
     });
 };
+exports.getInfoRestaurantByRest = getInfoRestaurantByRest;
+const getInfoRestaurantById = (req, res) => {
+    const { id } = req.params;
+    restaurants
+        .aggregate([
+        {
+            $match: {
+                partner_id: mongoose.Types.ObjectId(id),
+            },
+        },
+        {
+            $lookup: {
+                from: "partners",
+                localField: "partner_id",
+                foreignField: "_id",
+                as: "information",
+            },
+        },
+        {
+            $unwind: "$information",
+        },
+    ])
+        .then((response) => {
+        res.json(response[0]);
+    })
+        .catch((err) => {
+        console.log(err);
+    });
+};
 exports.getInfoRestaurantById = getInfoRestaurantById;
+//--------------------------------reset password--------------------------------
+const resetPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _d, _e;
+    try {
+        const { oldPassWord, newPassWord, confirmNewPassWord } = req.body;
+        // encrytedPassword = await bcrypt.hash(oldPassWord, 10);
+        const partner = yield partnerDB_1.default.findById((_d = req.user) === null || _d === void 0 ? void 0 : _d.partner_id);
+        if (newPassWord != confirmNewPassWord) {
+            return res
+                .status(404)
+                .json({ error: "รหัสผ่านไม่ตรงกัน กรุณาเช็ครหัสผ่านใหม่อีกครั้ง" });
+        }
+        const encrytedPassword = yield bcrypt.hash(newPassWord, 10);
+        if (yield bcrypt.compare(oldPassWord, partner === null || partner === void 0 ? void 0 : partner.password)) {
+            yield partnerDB_1.default.findByIdAndUpdate({
+                _id: (_e = req.user) === null || _e === void 0 ? void 0 : _e.partner_id,
+            }, {
+                password: encrytedPassword,
+            });
+            return res.status(200).json({ msg: "reset password " });
+        }
+        res.status(404).json({ error: "กรุณาเช็ครหัสผ่านใหม่อีกครั้ง" });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.resetPassword = resetPassword;

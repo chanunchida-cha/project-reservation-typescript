@@ -22,7 +22,6 @@ function classNames(...classes: (false | null | undefined | string)[]) {
 
 const EditAllDayReserv = observer(() => {
   const { reserv_id, partner_id } = useParams();
-
   const [selfReserv, setSelfReserv] = useState<SelfReserv>({
     firstname: "",
     lastname: "",

@@ -11,14 +11,20 @@ import CreateReserv from "./CrudReserv/CreateReserv";
 import EditAllDayReserv from "./CrudReserv/EditAllDayReserv";
 import EditRoundReserv from "./CrudReserv/EditRoundReserv";
 import ReservData from "./CrudReserv/ReservData";
+import SingleAllDayReserv from "./CrudReserv/SingleAllDayReserv";
+import SingleRoundReserv from "./CrudReserv/SingleRoundReserv";
 import CreateTable from "./CrudTable/CreateTable";
 import EditTable from "./CrudTable/EditTable";
 import TableData from "./CrudTable/TableData";
+import Dashboard from "./Dashboard/Dashboard";
+import ResetPassword from "./Profile/ResetPassword";
+import Report from "./Report/Report";
 function PartnerRoute() {
   return (
     <div>
       {" "}
       <Routes>
+      <Route path="/partner/dashboard" element={<Dashboard />} />
         <Route path="/partner/information" element={<Information />} />
         <Route path="/partner/edit/information" element={<EditInformation />} />
         <Route path="/partner/menu" element={<MenuData />} />
@@ -39,6 +45,22 @@ function PartnerRoute() {
                <Route
           path="/partner/reservationdata/round/edit/:partner_id/:reserv_id"
           element={<EditRoundReserv />}
+        />
+        <Route
+          path="/partner/report"
+          element={<Report />}
+        />
+         <Route
+          path="/partner/edit/password"
+          element={<ResetPassword />}
+        />
+             <Route
+          path="/partner/reserv/allday/:id"
+          element={<SingleAllDayReserv />}
+        />
+           <Route
+          path="/partner/reserv/round/:id"
+          element={<SingleRoundReserv />}
         />
       </Routes>
     </div>

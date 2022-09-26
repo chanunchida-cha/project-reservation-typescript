@@ -130,28 +130,28 @@ const RoundsAllData = observer(() => {
             .slice(pagesVisited, pagesVisited + dataPerPage)
             .map((reserv, index) => {
               return (
-                <tr key={index} className="bg-white">
-                  <td className="px-1 py-2 border-b  border-gray-200 bg-white  text-sm text-center">
+                <tr onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} key={index} className="bg-white hover:bg-gray-100">
+                  <td className="px-1 py-2 border-b  border-gray-200   text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.reservNumber}
                     </p>
                   </td>
-                  <td className="px-3 py-2 border-b border-gray-200 bg-white text-sm text-center">
+                  <td className="px-3 py-2 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {new Date(reserv.day).toLocaleDateString("en-GB")}
                     </p>
                   </td>
-                  <td className="px-3 py-3 border-b border-gray-200 bg-white text-sm text-center">
+                  <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {`${reserv.start} - ${reserv.end}`}
                     </p>
                   </td>
-                  <td className="px-2 py-3 border-b border-gray-200 bg-white text-sm text-center">
+                  <td className="px-2 py-3 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.amount}
                     </p>
                   </td>
-                  <td className="px-3 py-3 border-b border-gray-200 bg-white text-sm text-center">
+                  <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.table
                         .map((table) => {
@@ -161,14 +161,14 @@ const RoundsAllData = observer(() => {
                     </p>
                   </td>
                   {reserv.self_reserv && (
-                    <td className="px-3 py-3 border-b border-gray-200 bg-white text-sm text-center">
+                    <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                       <p className="text-gray-900 whitespace-no-wrap">
                         {`${reserv.self_reserv.firstname}  ${reserv.self_reserv.lastname}`}
                       </p>
                     </td>
                   )}
                   {reserv.customer!.length > 0 && (
-                    <td className="px-3 py-3 border-b border-gray-200 bg-white text-sm text-center">
+                    <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                       <p className="text-gray-900 whitespace-no-wrap">
                         {reserv.customer!.map((customer) => {
                           return `${customer.firstname}  ${customer.lastname} `;
@@ -176,7 +176,7 @@ const RoundsAllData = observer(() => {
                       </p>
                     </td>
                   )}
-                  <td className="px-2 py-3 border-b border-gray-200 bg-white text-sm text-center ">
+                  <td className="px-2 py-3 border-b border-gray-200  text-sm text-center ">
                     <div className="flex items-center justify-center p-2">
                       <Listbox
                         as="div"
@@ -188,7 +188,7 @@ const RoundsAllData = observer(() => {
                           <>
                             <div className="relative">
                               <span className="inline-block w-full rounded-md shadow-sm">
-                                <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                                <Listbox.Button className="cursor-default relative w-full rounded-md border border-gray-300  pl-3 pr-10 py-2 text-left focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                                   <span className="block truncate">
                                     {reserv.status}
                                   </span>
@@ -215,11 +215,11 @@ const RoundsAllData = observer(() => {
                                 leave="transition ease-in duration-100"
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
-                                className="absolute  mt-1 w-full rounded-md bg-white shadow-lg"
+                                className="absolute  mt-1 w-full rounded-md  shadow-lg"
                               >
                                 <Listbox.Options
                                   static
-                                  className="absolute z-10 mt-1 w-80 bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                  className="absolute z-10 mt-1 w-80  shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
                                 >
                                   {initialStatus.map((type, index) => (
                                     <Listbox.Option
@@ -280,7 +280,7 @@ const RoundsAllData = observer(() => {
                       </Listbox>
                     </div>
                   </td>
-                  <td className="px-2 py-3 border-b border-gray-200 bg-white text-sm ">
+                  <td className="px-2 py-3 border-b border-gray-200  text-sm ">
                     <button
                       className="py-1 px-3 mr-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
                       onClick={() => {

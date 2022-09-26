@@ -352,13 +352,13 @@ const CreateInformation = observer(() => {
                   <SettingAllDay
                     timeLength={timeLength}
                     onTimeLengthChange={setTimeLength}
-                    days={days}
+                   
                     openDay={openDay}
                     onChangeValue={setOpenDay}
                   />
                 ) : (
                   <SettingRound
-                    days={days}
+                   
                     openDay={openDay}
                     onChangeValue={setOpenDay}
                     inputFields={inputFields}

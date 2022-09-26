@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const router = (0, express_1.Router)();
+const reportAdminController_1 = require("../controller/reportAdminController");
+router.route("/admin/get-count-customer").get(reportAdminController_1.countCustomer);
+router.route("/admin/get-count-partner").get(reportAdminController_1.countPartner);
+router.route("/admin/get-count-admin").get(reportAdminController_1.countAdmin);
+router.route("/admin/get-count-rest-info").get(reportAdminController_1.countRestInfo);
+router.route("/admin/get-count-partner-varification").get(reportAdminController_1.countPartnerVerification);
+router.route("/admin/get-count-partner-approve").get(reportAdminController_1.countPartnerApprove);
+router.route("/admin/get-count-partner-disapprove").get(reportAdminController_1.countPartnerDisApprove);
+router.route("/admin/get-count-partner-type-allday").get(reportAdminController_1.groupPartnerByTypeAllDay);
+router.route("/admin/get-count-partner-type-round").get(reportAdminController_1.groupPartnerByTypeRound);
+router.route("/admin/get-count-reserv-per-week").get(reportAdminController_1.groupReservByPartnerForWeek);
+router.route("/admin/get-count-reserv-per-month").get(reportAdminController_1.groupReservByPartnerForMonth);
+router.route("/admin/get-count-reserv-per-year").get(reportAdminController_1.groupReservByPartnerForYear);
+exports.default = router;

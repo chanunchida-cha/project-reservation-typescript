@@ -2,7 +2,8 @@ import { Response, Request } from "express";
 const restaurants = require("../models/restaurantDB");
 const { mongoose } = require("mongoose");
 import { Info } from "../models/restaurantDB";
-
+const bcrypt = require("bcrypt");
+import partners from "../models/partnerDB";
 //----------------------------information------------------------------------------------------------------
 export const createInfoRestaurant = async (req: Request, res: Response) => {
   try {
@@ -140,7 +141,7 @@ export const getAllInfoRestaurant = (req: Request, res: Response) => {
     });
 };
 
-export const getInfoRestaurantById = (req: Request, res: Response) => {
+export const getInfoRestaurantByRest = (req: Request, res: Response) => {
   const id = req.user?.partner_id;
   restaurants
     .aggregate([
@@ -167,4 +168,63 @@ export const getInfoRestaurantById = (req: Request, res: Response) => {
     .catch((err: any) => {
       console.log(err);
     });
+};
+
+export const getInfoRestaurantById = (req: Request, res: Response) => {
+  const { id } = req.params;
+  restaurants
+    .aggregate([
+      {
+        $match: {
+          partner_id: mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "partners",
+          localField: "partner_id",
+          foreignField: "_id",
+          as: "information",
+        },
+      },
+      {
+        $unwind: "$information",
+      },
+    ])
+    .then((response: Info[]) => {
+      res.json(response[0]);
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
+};
+
+//--------------------------------reset password--------------------------------
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { oldPassWord, newPassWord, confirmNewPassWord } = req.body;
+    // encrytedPassword = await bcrypt.hash(oldPassWord, 10);
+    const partner = await partners.findById(req.user?.partner_id);
+
+    if (newPassWord != confirmNewPassWord) {
+      return res
+        .status(404)
+        .json({ error: "รหัสผ่านไม่ตรงกัน กรุณาเช็ครหัสผ่านใหม่อีกครั้ง" });
+    }
+    const encrytedPassword = await bcrypt.hash(newPassWord, 10);
+    if (await bcrypt.compare(oldPassWord, partner?.password)) {
+      await partners.findByIdAndUpdate(
+        {
+          _id: req.user?.partner_id,
+        },
+        {
+          password: encrytedPassword,
+        }
+      );
+      return res.status(200).json({ msg: "reset password " });
+    }
+    res.status(404).json({ error: "กรุณาเช็ครหัสผ่านใหม่อีกครั้ง" });
+  } catch (err) {
+    console.log(err);
+  }
 };

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMenu = exports.getMenuById = exports.getMenuByRest = exports.updateMenu = exports.createMenu = void 0;
+exports.deleteMenu = exports.getMenuById = exports.getMenuByRestId = exports.getMenuByRest = exports.updateMenu = exports.createMenu = void 0;
 const { mongoose } = require("mongoose");
 const menus = require("../models/menuDB");
 const createMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -99,6 +99,20 @@ const getMenuByRest = (req, res) => {
     });
 };
 exports.getMenuByRest = getMenuByRest;
+const getMenuByRestId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    yield menus
+        .find({
+        partner_id: mongoose.Types.ObjectId(id),
+    })
+        .then((response) => {
+        res.json(response);
+    })
+        .catch((err) => {
+        console.log(err);
+    });
+});
+exports.getMenuByRestId = getMenuByRestId;
 const getMenuById = (req, res) => {
     const { id } = req.params;
     menus.findById(id, (err, menu) => {

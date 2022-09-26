@@ -7,6 +7,7 @@ const tableController_1 = require("../controller/tableController");
 router.route("/create-table").post(auth, tableController_1.createTable);
 router.route("/update-table/:id").put(auth, tableController_1.updateTable);
 router.route("/get-table-by-rest").get(auth, tableController_1.getTableByRest);
+router.route("/get-table-by-rest-id/:id").get(tableController_1.getTableByRestId);
 router.route("/get-table-by-id/:id").get(tableController_1.getTableById);
 router.route("/delete-table/:id").delete(tableController_1.deleteTable);
 exports.default = router;

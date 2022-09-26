@@ -6,14 +6,29 @@ import { customerStore } from "./store/customerStore";
 const Navbar = observer(() => {
   const navigate = useNavigate();
   const customer = customerStore.customerLogin;
-
+  const [navbar, setNavbar] = useState(true);
   const [openSupProfile, setopenSupProfile] = useState<boolean>(false);
   const [openMenuPartner, setOpenMenuPartner] = useState<boolean>(false);
   const [openMenuMobile, setOpenMenuMobile] = useState<boolean>(false);
   console.log(customer?.username);
+  const scrollNav = () => {
+    if (window.scrollY > 60) {
+      setNavbar(false);
+    } else {
+      setNavbar(true);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", scrollNav);
+    return () => {
+      window.removeEventListener("scroll", scrollNav);
+    };
+  }, []);
 
   return (
-    <nav className="bg-gray-50">
+    <nav  className={`${
+      navbar && "fixed top-0 w-full z-50 bg-gray-50 ease-in duration-500"
+    }`}>
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -164,7 +179,7 @@ const Navbar = observer(() => {
                     tabIndex={-1}
                   >
                     <a
-                      href="#"
+                      href="/myprofile"
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex={-1}
@@ -173,7 +188,7 @@ const Navbar = observer(() => {
                       โปรไฟล์
                     </a>
                     <a
-                      href="#"
+                      href="/history/reservation"
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex={-1}

@@ -39,7 +39,6 @@ type OpenDayInfo = {
   friday: Openday;
   saturday: Openday;
   sunday: Openday;
- 
 };
 
 type Info = {
@@ -70,6 +69,12 @@ type Menu = {
   price: string;
   image: string;
 };
+type Password ={
+  oldPassword : string,
+  newPassword:string,
+  confirmPassword : string
+}
+
 class PartnerStore {
   partnerLogin: Partner | undefined = undefined;
   openday: Openday = {
@@ -116,7 +121,32 @@ class PartnerStore {
       address: "",
     },
   };
+  partnerInfoById: Info = {
+    _id: "",
+    partner_id: "",
+    description: "",
+    address: "",
+    contact: "",
+    image: "",
+    type_rest: "",
+    time_length: "",
+    rounds: [],
+    openday: this.openDayInfo,
+    information: {
+      _id: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      phoneNumber: "",
+      username: "",
+      password: "",
+      confirmPass: "",
+      restaurantName: "",
+      address: "",
+    },
+  };
   tables: Table[] = [];
+  tablesById: Table[] = [];
   table: Table = {
     _id: "",
     partner_id: "",
@@ -132,6 +162,7 @@ class PartnerStore {
     price: "",
     image: "",
   };
+  menusByRestId: Menu[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -215,6 +246,39 @@ class PartnerStore {
     this.partnerLogin = undefined;
     sessionStorage.removeItem("token");
   }
+
+  async resetPassword(allPassword:Password) {
+    const { oldPassword, newPassword, confirmPassword } = allPassword;
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_API_PARTNER}/reset-password`,
+        {
+          oldPassWord: oldPassword,
+          newPassWord: newPassword,
+          confirmNewPassWord: confirmPassword,
+        },
+        {
+          headers: { "x-access-token": getToken() },
+        }
+      );
+      Swal.fire(
+        "แก้ไขรหัสผ่านสำเร็จ!",
+        "กรุณาเข้าสู่ระบบใหม่อีกครั้ง",
+        "success"
+      );
+      this.logout();
+    } catch (err) {
+      if (err instanceof Error) {
+        await Swal.fire({
+          icon: "error",
+          title: "Sorry",
+          text: err.message,
+        });
+      }
+      throw err;
+    }
+  }
+
   //-----------------Information-----------------------------------
   async createInformation(formData: FormData) {
     try {
@@ -243,6 +307,7 @@ class PartnerStore {
       }
     }
   }
+
   async getInfoRestaurant() {
     try {
       const response = await axios.get(
@@ -253,6 +318,19 @@ class PartnerStore {
       );
       this.partnerInfo = response.data;
       console.log(this.partnerInfo);
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+
+  async getInfoRestaurantById(id: string) {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_PARTNER}/get-info/${id}`
+      );
+      this.partnerInfoById = response.data;
+      console.log(this.partnerInfoById);
     } catch (err) {
       console.log(err);
       throw err;
@@ -363,6 +441,17 @@ class PartnerStore {
       console.log(err);
     }
   }
+  async getTableByRestId(id: string) {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_TABLE}/get-table-by-rest-id/${id}`
+      );
+      this.tablesById = response.data;
+      console.log(this.tablesById);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async getTableById(id: string) {
     try {
       const response = await axios.get(
@@ -420,7 +509,7 @@ class PartnerStore {
       }
     }
   }
-  async updateMenu(id:string,formData: FormData) {
+  async updateMenu(id: string, formData: FormData) {
     try {
       await axios.put(
         `${process.env.REACT_APP_API_MENU}/update-menu/${id}`,
@@ -457,6 +546,17 @@ class PartnerStore {
       );
       this.menus = response.data;
       console.log(this.menus);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async getMenuByRestId(id: string) {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_MENU}/get-menu-by-rest-id/${id}`
+      );
+      this.menusByRestId = response.data;
+      console.log(this.menusByRestId);
     } catch (err) {
       console.log(err);
     }

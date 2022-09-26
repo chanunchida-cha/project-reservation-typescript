@@ -1,41 +1,42 @@
 import React from 'react'
 import TextField from "@mui/material/TextField";
 
+
+const days = [
+  {
+    key: "monday",
+    i18n: "วันจันทร์",
+  },
+  {
+    key: "tuesday",
+    i18n: "วันอังคาร",
+  },
+  {
+    key: "wednesday",
+    i18n: "วันพุธ",
+  },
+  {
+    key: "thursday",
+    i18n: "วันพฤหัสบดี",
+  },
+  {
+    key: "friday",
+    i18n: "วันศุกร์",
+  },
+  {
+    key: "saturday",
+    i18n: "วันเสาร์",
+  },
+  {
+    key: "sunday",
+    i18n: "วันอาทิตย์",
+  },
+] as const;
+
 type TimeLengthProps = {
   timeLength: string;
 };
-type DaysProps = {
-  days: readonly [ 
-    {
-      key: "monday",
-      i18n: "วันจันทร์",
-    },
-    {
-      key: "tuesday",
-      i18n: "วันอังคาร",
-    },
-    {
-      key: "wednesday",
-      i18n: "วันพุธ",
-    },
-    {
-      key: "thursday",
-      i18n: "วันพฤหัสบดี",
-    },
-    {
-      key: "friday",
-      i18n: "วันศุกร์",
-    },
-    {
-      key: "saturday",
-      i18n: "วันเสาร์",
-    },
-    {
-      key: "sunday",
-      i18n: "วันอาทิตย์",
-    },
-  ];
-};
+
 type OnTimeLengthChange = {
   onTimeLengthChange: (timerlength: string) => void;
 };
@@ -121,11 +122,11 @@ type OnChangeValue = {
 };
 
 function EditAllDay(props: TimeLengthProps &
-  DaysProps &
+
   OnTimeLengthChange &
   OpenDay &
   OnChangeValue) {
-    const { timeLength, onTimeLengthChange, days, openDay, onChangeValue } =
+    const { timeLength, onTimeLengthChange, openDay, onChangeValue } =
     props;
   return (
     <div className=" grid grid-cols-6 gap-6">

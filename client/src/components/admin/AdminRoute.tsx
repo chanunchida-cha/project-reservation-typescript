@@ -14,13 +14,17 @@ import PartnerApprove from "./CrudPartner/PartnerApprove";
 import PartnerDisApprove from "./CrudPartner/PartnerDisApprove";
 import PartnerVerification from "./CrudPartner/PartnerVerification";
 import SinglePartner from "./CrudPartner/SinglePartner";
-import Dashboard from "./Dashboard";
+import Dashboard from "./Dashboard/Dashboard";
+import GraphByMonth from "./Dashboard/Graph/GraphByMonth";
+import EditProfile from "./Profile/EditProfile";
+import ResetPassword from "./Profile/ResetPassword";
+import Report from "./Report/Report";
 
 function AdminRoute() {
   return (
     <div>
       <Routes>
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        {/* <Route path="/admin/dashboard" element={<Dashboard />} /> */}
         <Route
           path="/admin/partner/verification"
           element={<PartnerVerification />}
@@ -42,6 +46,10 @@ function AdminRoute() {
         <Route path="/admin/create/partner" element={<CreatePartner />} />
         <Route path="/admin/partner/:status/:id" element={<SinglePartner/>}/>
         <Route path="/admin/edit/partner/:id" element={<EditPartner />} />
+        <Route path="/admin/edit/password" element={<ResetPassword />} />
+        <Route path="/admin/edit/profile" element={<EditProfile />} />
+        <Route path="/admin/report" element={<Report />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );

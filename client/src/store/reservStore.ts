@@ -42,6 +42,7 @@ class ReservStore {
   };
 
   allDayReservs: Reserv[] = [];
+  allDayReservsToday: Reserv[] = [];
   allDayReserv: Reserv = {
     _id: "",
     reservNumber: "",
@@ -57,6 +58,7 @@ class ReservStore {
     status: "",
   };
   roundReservs: Reserv[] = [];
+  roundReservsToday: Reserv[] = [];
   roundReserv: Reserv = {
     _id: "",
     reservNumber: "",
@@ -132,7 +134,7 @@ class ReservStore {
         `${process.env.REACT_APP_API_RESERV}/customer/all-day-reserv`,
         {
           partner_id: partner_id,
-          customer_id:customer_id,
+          customer_id: customer_id,
           day: date,
           start: start,
           amount: amount,
@@ -191,7 +193,7 @@ class ReservStore {
   }
   async customerRoundReserv(
     partner_id: string,
-    customer_id:string,
+    customer_id: string,
     amount: string,
     date: string,
     start: string,
@@ -202,7 +204,7 @@ class ReservStore {
         `${process.env.REACT_APP_API_RESERV}/customer/round-reserv`,
         {
           partner_id: partner_id,
-          customer_id:customer_id,
+          customer_id: customer_id,
           day: date,
           start: start,
           end: end,
@@ -224,7 +226,7 @@ class ReservStore {
       }
     }
   }
-  
+
   //---------------------update allDay reserv-----------------------------------------
   async selfAllDayUpdate(
     id: string,
@@ -384,6 +386,7 @@ class ReservStore {
       );
       Swal.fire("แก้ไขสถานะเรียบร้อยแล้ว", "update success!", "success");
       this.getAllDayReserv();
+      this.getAllDayReservById(id);
     } catch (err) {
       if (err instanceof Error) {
         Swal.fire({
@@ -407,6 +410,7 @@ class ReservStore {
       );
       Swal.fire("แก้ไขสถานะเรียบร้อยแล้ว", "update success!", "success");
       this.getRoundReserv();
+      this.getRoundReservById(id);
     } catch (err) {
       if (err instanceof Error) {
         Swal.fire({
@@ -430,6 +434,20 @@ class ReservStore {
       );
       this.allDayReservs = response.data;
       console.log(this.allDayReservs);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async getAllDayReservToday() {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_RESERV}/get-all-day-reservs-today`,
+        {
+          headers: { "x-access-token": getToken() },
+        }
+      );
+      this.allDayReservsToday = response.data;
+      console.log(this.allDayReservsToday);
     } catch (err) {
       console.log(err);
     }
@@ -460,7 +478,20 @@ class ReservStore {
       console.log(err);
     }
   }
-
+  async getRoundReservToday() {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_RESERV}/get-round-reservs-today`,
+        {
+          headers: { "x-access-token": getToken() },
+        }
+      );
+      this.allDayReservsToday = response.data;
+      console.log(this.allDayReservsToday);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async getRoundReservById(id: string) {
     try {
       const response = await axios.get(

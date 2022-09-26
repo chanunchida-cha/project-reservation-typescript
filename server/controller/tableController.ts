@@ -66,6 +66,20 @@ export const getTableByRest = (req: Request, res: Response) => {
     });
 };
 
+export const getTableByRestId = (req: Request, res: Response) => {
+  const { id } = req.params;
+  tables
+    .find({
+      partner_id: mongoose.Types.ObjectId(id),
+    })
+    .then((response: Table[]) => {
+      res.json(response);
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
+};
+
 export const getTableById = (req: Request, res: Response) => {
   const { id } = req.params;
   tables.findById(id, (err: any, table: Table) => {
