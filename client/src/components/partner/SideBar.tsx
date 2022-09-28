@@ -181,8 +181,8 @@ const sideBar = observer(() => {
         </div>
       </div>
       {/* ./Sidebar */}
-      <div className="h-screen ml-14 mt-12  md:ml-64 bg-gray-100 ">
-        <div className="px-20 py-6 pt-10 ">
+      <div className=" h-full ml-14 mt-12  md:ml-64  bg-gray-100 ">
+        <div className="px-20 py-6 pt-10 bg-gray-100">
           <PartnerRoute />
         </div>
       </div>

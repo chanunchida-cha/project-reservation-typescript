@@ -20,7 +20,7 @@ const SingleHistory=observer(()=> {
       await partnerStore.getInfoRestaurantById(partner_id!);
     };
     getInfoData();
-  }, []);
+  }, [reserv_id,partner_id]);
   const partnerInfo = partnerStore.partnerInfoById;
   const reserv =
     type === "allDay" ? reservStore.allDayReserv : reservStore.roundReserv;
