@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Response, Request } from "express";
 import admins from "../models/adminDB";
 import partners from "../models/partnerDB";
@@ -30,6 +31,58 @@ export const customerLogin = async (req: Request, res: Response) => {
       res.status(200).json(user);
     }
     res.status(404).json({ error: "กรุณาตรวจสอบ username และ รหัสผ่าน" });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const facebookLogin = async (req: Request, res: Response) => {
+  const { accessToken, userID } = req.body;
+
+  const urlGrapFacebook = `https://graph.facebook.com/${userID}?fields=id,name,email,picture&access_token=${accessToken}`;
+  try {
+    const response: { data:{name:string,id:string,email:string} } = await axios.get(
+      urlGrapFacebook
+    );
+    console.log(response);
+
+    const { id, name,email } = response.data;
+    const user = await Users.findOne({ email: email });
+
+    if (user) {
+      const token = jwt.sign(
+        { user_id: user._id, name },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "5h",
+        }
+      );
+      user.token = token;
+      res.status(200).json(user);
+    } else {
+      const password = await bcrypt.hash(name + process.env.JWT_SECRET, 10);
+      const confrimPassword = await bcrypt.hash(
+        name + process.env.JWT_SECRET,
+        10
+      );
+      const user = await Users.create({
+        username: name,
+        firstname: name,
+        lastname: name,
+        email: email,
+        password: password,
+        confirmPass: confrimPassword,
+        facebook_id: accessToken,
+      });
+      const token = jwt.sign(
+        { user_id: user._id, email },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "5h",
+        }
+      );
+      user.token = token;
+      res.status(200).json(user);
+    }
   } catch (err) {
     console.log(err);
   }

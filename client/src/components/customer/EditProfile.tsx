@@ -100,7 +100,7 @@ const EditProfile = observer(() => {
             placeholder="0888888888"
             value={phoneNumber}
             onChange={onChangeInput}
-            required
+         
           />
         </div>
         <div className="mb-3">
@@ -137,6 +137,7 @@ const EditProfile = observer(() => {
             value={email}
             onChange={onChangeInput}
             required
+            disabled
           />
         </div>
 

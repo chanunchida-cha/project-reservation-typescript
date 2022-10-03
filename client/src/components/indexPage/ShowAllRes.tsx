@@ -63,7 +63,6 @@ function ShowAllRes() {
     return <div>Loading...</div>;
   }
 
-  console.log(allInfo);
 
   return (
     <div className="bg-white">

@@ -6,6 +6,7 @@ const router = (0, express_1.Router)();
 const auth = require("../middleware/auth");
 //---------------customer---------------------------
 router.route("/login-customer").post(authController_1.customerLogin);
+router.route("/login-facebook").post(authController_1.facebookLogin);
 router.route("/get-customer").get(auth, authController_1.getCustomer);
 //---------------partner---------------------------
 router.route("/login-partner").post(authController_1.partnerLogin);

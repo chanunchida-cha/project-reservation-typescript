@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAdmin = exports.adminLogin = exports.getPartner = exports.partnerLogin = exports.getCustomer = exports.customerLogin = void 0;
+exports.getAdmin = exports.adminLogin = exports.getPartner = exports.partnerLogin = exports.getCustomer = exports.facebookLogin = exports.customerLogin = void 0;
+const axios_1 = __importDefault(require("axios"));
 const adminDB_1 = __importDefault(require("../models/adminDB"));
 const partnerDB_1 = __importDefault(require("../models/partnerDB"));
 const userDB_1 = __importDefault(require("../models/userDB"));
@@ -42,6 +43,45 @@ const customerLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.customerLogin = customerLogin;
+const facebookLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { accessToken, userID } = req.body;
+    const urlGrapFacebook = `https://graph.facebook.com/${userID}?fields=id,name,email,picture&access_token=${accessToken}`;
+    try {
+        const response = yield axios_1.default.get(urlGrapFacebook);
+        console.log(response);
+        const { id, name, email } = response.data;
+        const user = yield userDB_1.default.findOne({ email: email });
+        if (user) {
+            const token = jwt.sign({ user_id: user._id, name }, process.env.JWT_SECRET, {
+                expiresIn: "5h",
+            });
+            user.token = token;
+            res.status(200).json(user);
+        }
+        else {
+            const password = yield bcrypt.hash(name + process.env.JWT_SECRET, 10);
+            const confrimPassword = yield bcrypt.hash(name + process.env.JWT_SECRET, 10);
+            const user = yield userDB_1.default.create({
+                username: name,
+                firstname: name,
+                lastname: name,
+                email: email,
+                password: password,
+                confirmPass: confrimPassword,
+                facebook_id: accessToken,
+            });
+            const token = jwt.sign({ user_id: user._id, email }, process.env.JWT_SECRET, {
+                expiresIn: "5h",
+            });
+            user.token = token;
+            res.status(200).json(user);
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.facebookLogin = facebookLogin;
 const getCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {

@@ -193,7 +193,7 @@ const ModalReserv = observer(
                     <div
                       className={
                         step === 2
-                          ? "mt-2 col-span-1 flex justify-center text-[#1890ff] "
+                          ? "mt-2 col-span-1 flex justify-center text-blue-700 "
                           : "mt-2 col-span-1 flex justify-center "
                       }
                     >
@@ -202,7 +202,7 @@ const ModalReserv = observer(
                     <div
                       className={
                         step === 3
-                          ? "mt-2 col-span-1 flex justify-center text-[#1890ff] "
+                          ? "mt-2 col-span-1 flex justify-center text-blue-700 "
                           : "mt-2 col-span-1 flex justify-center "
                       }
                     >
@@ -211,7 +211,7 @@ const ModalReserv = observer(
                     <div
                       className={
                         step === 4
-                          ? "mt-2 col-span-1 flex justify-center text-[#1890ff] "
+                          ? "mt-2 col-span-1 flex justify-center text-blue-700 "
                           : "mt-2 col-span-1 flex justify-center "
                       }
                     >
@@ -290,7 +290,7 @@ const ModalReserv = observer(
                               }}
                               className={
                                 timeRound.start === round.start
-                                  ? " py-2  border col-span-2 mt-2 mx-2 border-transparent text-sm font-medium rounded-md text-white bg-[#1890ff] hover:bg-[#40a9ff] "
+                                  ? " py-2  border col-span-2 mt-2 mx-2 border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 "
                                   : "py-2  border col-span-2 mt-2 mx-2 border-transparent text-sm font-medium rounded-md text-black bg-[#ffffff] hover:bg-[#d5d5d5] "
                               }
                             >
@@ -304,7 +304,7 @@ const ModalReserv = observer(
                 )}
                 {step === 4 && (
                   <>
-                    {!customerStore.customerLogin?.username && (
+                    
                       <>
                         {" "}
                         <div className="mt-4 text-center col-span-6 font-semibold">
@@ -312,7 +312,7 @@ const ModalReserv = observer(
                         </div>
                         <div className=" mt-4 text-center col-span-6 ">
                           <button
-                            className="py-1 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-[#1890ff] hover:bg-[#40a9ff] "
+                            className="py-1 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-blue-700 hover:bg-blue-800"
                             onClick={() => {
                               navigate("/customer/login");
                             }}
@@ -362,57 +362,8 @@ const ModalReserv = observer(
                           </div>
                         </div>
                       </>
-                    )}
-                    {customerStore.customerLogin?.username&& (
-                      <>
-                        {" "}
-                        <div className="mt-4 text-center col-span-6 font-semibold">
-                          ข้อมูลส่วนตัว
-                        </div>
-                        <div className="mx-3">
-                          <div className="col-span-2 pt-2">ชื่อ:</div>
-                          <div className="col-span-4">
-                            <input
-                              disabled
-                              type="text"
-                              name="firstname"
-                              id="firstname"
-                              placeholder="ชื่อ"
-                              value={customerStore.customerLogin?.firstname}
-                              // onChange={onChangeValue}
-                              autoComplete="firstname"
-                              className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                            />
-                          </div>
-                          <div className="col-span-2 pt-2">นามสกุล:</div>
-                          <div className="col-span-4">
-                            <input
-                              type="text"
-                              name="lastname"
-                              id="lastname"
-                              placeholder="นามสกุล"
-                              value={customerStore.customerLogin?.lastname}
-                              // onChange={onChangeValue}
-                              autoComplete="lastname"
-                              className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                            />
-                          </div>
-                          <div className="col-span-2 pt-2">เบอร์โทรศัพท์:</div>
-                          <div className="col-span-4">
-                            <input
-                              type="text"
-                              name="phoneNumber"
-                              id="phoneNumber"
-                              placeholder="เบอร์โทรศัพท์"
-                              value={customerStore.customerLogin?.phoneNumber}
-                              // onChange={onChangeValue}
-                              autoComplete="phoneNumber"
-                              className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                            />
-                          </div>
-                        </div>
-                      </>
-                    )}
+                
+                
                   </>
                 )}
                 <div className="bg-white px-4 py-3 sm:px-6 ">
@@ -423,7 +374,7 @@ const ModalReserv = observer(
                         <button
                           disabled={step === 2}
                           className={
-                            "disabled:opacity-75 px-3 border  border-transparent text-sm h-10 w-24 font-medium rounded-full text-white bg-[#1890ff] hover:bg-[#40a9ff] "
+                            "disabled:opacity-75 px-3 border  border-transparent text-sm h-10 w-24 font-medium rounded-full text-white bg-blue-700 hover:bg-blue-800 "
                           }
                           onClick={() => {
                             setStep(step - 1);
@@ -445,7 +396,7 @@ const ModalReserv = observer(
                                 : false
                             }
                             className={
-                              "disabled:opacity-75 px-3 border border-transparent text-sm h-10 w-24 font-medium rounded-full text-white bg-[#1890ff] hover:bg-[#40a9ff]"
+                              "disabled:opacity-75 px-3 border border-transparent text-sm h-10 w-24 font-medium rounded-full text-white bg-blue-700 hover:bg-blue-800"
                             }
                             onClick={() => {
                               setStep(step + 1);
@@ -468,7 +419,7 @@ const ModalReserv = observer(
                                 : false
                             }
                             className={
-                              "disabled:opacity-75 px-3 border border-transparent text-sm h-10 w-24 font-medium rounded-full text-white bg-[#1890ff] hover:bg-[#40a9ff]"
+                              "disabled:opacity-75 px-3 border border-transparent text-sm h-10 w-24 font-medium rounded-full text-white bg-blue-700 hover:bg-blue-800"
                             }
                             onClick={(event) => {
                               createReserv(event, info.type_rest);

@@ -42,13 +42,13 @@ type Reserv = {
   customer_id?: string;
   table: string[];
   status: string;
-  partner:Partner
+  partner: Partner;
 };
-type Password ={
-  oldPassword : string,
-  newPassword:string,
-  confirmPassword : string
-}
+type Password = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
 
 class CustomerStore {
   customer: Information | undefined = undefined;
@@ -124,6 +124,31 @@ class CustomerStore {
       throw err;
     }
   }
+  async loginFaceBook(accessToken: string, userID: string) {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_AUTH}/login-facebook`,
+        {
+          accessToken: accessToken,
+          userID: userID,
+        }
+      );
+      sessionStorage.setItem("token", JSON.stringify(response.data.token));
+      console.log(response.data);
+
+      this.customerLogin = response.data;
+    } catch (err) {
+      if (err instanceof Error) {
+        await Swal.fire({
+          icon: "error",
+          title: "Sorry",
+          text: err.message,
+        });
+      }
+      console.log(err);
+      throw err;
+    }
+  }
   async getCustomer() {
     try {
       const response = await axios.get(
@@ -172,7 +197,7 @@ class CustomerStore {
     sessionStorage.removeItem("token");
   }
 
-  async resetPassword(allPassword:Password) {
+  async resetPassword(allPassword: Password) {
     const { oldPassword, newPassword, confirmPassword } = allPassword;
     try {
       await axios.put(

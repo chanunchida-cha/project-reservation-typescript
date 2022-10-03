@@ -7,11 +7,9 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const users = new mongoose_1.default.Schema({
     firstname: {
         type: String,
-        required: true,
     },
     lastname: {
         type: String,
-        required: true,
     },
     username: {
         type: String,
@@ -25,7 +23,6 @@ const users = new mongoose_1.default.Schema({
     },
     phoneNumber: {
         type: String,
-        required: true,
     },
     password: {
         type: String,
@@ -38,6 +35,9 @@ const users = new mongoose_1.default.Schema({
     token: {
         type: String,
     },
+    facebook_id: {
+        type: String
+    }
 });
 const Users = mongoose_1.default.model("Users", users);
 exports.default = Users;

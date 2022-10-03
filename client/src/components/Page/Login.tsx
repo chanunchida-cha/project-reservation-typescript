@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { adminStore } from "../../store/adminStore";
 import { customerStore } from "../../store/customerStore";
 import { partnerStore } from "../../store/partnerStore";
+import FacebookLogin from "react-facebook-login";
 
 type InfoLogin = {
   username: string;
@@ -13,6 +14,25 @@ type InfoLogin = {
 const startInfo = {
   username: "",
   password: "",
+};
+type ResponseFacebook = {
+  accessToken: string;
+  data_access_expiration_time: number;
+  email: string;
+  expiresIn: number;
+  graphDomain: string;
+  id: string;
+  name: string;
+  picture: {
+    data: {
+      height: number;
+      is_silhouette: boolean;
+      url: string;
+      weigth: number;
+    };
+  };
+  signedRequest: string;
+  userID: string;
 };
 
 const Login = observer(() => {
@@ -38,16 +58,40 @@ const Login = observer(() => {
       navigate("/partner/dashboard");
     } else if (role === "admin") {
       await adminStore.loginAdmin(infoLogin);
-      navigate("/admin/dashboard")
+      navigate("/admin/dashboard");
     }
   }
+
+  const responseFacebook = async (response: ResponseFacebook) => {
+    console.log(response);
+    await customerStore.loginFaceBook(response.accessToken, response.userID);
+    navigate("/");
+  };
   return (
     <div className="max-w-2xl mx-auto bg-white p-16">
+      <div className="mb-6 flex mt-12 justify-center font-semibold text-lg">
+        เข้าสู่ระบบ
+      </div>
+      {role === "customer" && (
+        <>
+          <div className="mb-6 flex justify-center w-full sm:w-full md:w-full lg:w-full text-white bg-[#4267B2] hover:bg-[#375797] font-medium rounded-lg text-sm   px-5 py-2.5">
+            <FacebookLogin
+              appId={`${process.env.REACT_APP_FACEBOOK_APP_ID}`}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              cssClass="my-facebook-button-class"
+              textButton="เข้าสู่ระบบด้วยเฟซบุ๊ก"
+            />
+          </div>
+          <div>
+            <a className=" flex justify-center w-full text-gray-500 text-sm">
+              หรือเข้าสู่ระบบด้วย
+            </a>
+          </div>
+        </>
+      )}
       <form onSubmit={loginSubmit}>
         <div className="mb-6">
-          <div className="mb-6 flex justify-center font-semibold text-lg">
-            เข้าสู่ระบบ
-          </div>
           <div className="mb-6">
             <label
               htmlFor="username"

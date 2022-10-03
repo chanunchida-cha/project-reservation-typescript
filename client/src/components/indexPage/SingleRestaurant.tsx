@@ -95,9 +95,15 @@ const SingleRestaurant = observer(() => {
     lastname: string;
     phoneNumber: string;
   }>({
-    firstname: "",
-    lastname: "",
-    phoneNumber: "",
+    firstname: customerStore.customerLogin?.firstname
+      ? customerStore.customerLogin?.firstname
+      : "",
+    lastname: customerStore.customerLogin?.lastname
+      ? customerStore.customerLogin?.lastname
+      : "",
+    phoneNumber: customerStore.customerLogin?.phoneNumber
+      ? customerStore.customerLogin?.phoneNumber
+      : "",
   });
   const [navbar, setNavbar] = useState(true);
   const [step, setStep] = useState(1);
@@ -228,9 +234,7 @@ const SingleRestaurant = observer(() => {
         selfReserv={selfReserv}
         onChangeValue={onChangeValue}
         createReserv={createReserv}
-        info ={ info}
-       
-
+        info={info}
       />
     );
   }
@@ -390,12 +394,12 @@ const SingleRestaurant = observer(() => {
           )}
           {step === 4 && (
             <>
-              {!customerStore.customerLogin?.username && (
-                <>
-                  {" "}
-                  <div className="text-center col-span-6 font-semibold">
-                    ข้อมูลส่วนตัว
-                  </div>
+              <>
+                {" "}
+                <div className="text-center col-span-6 font-semibold">
+                  ข้อมูลส่วนตัว
+                </div>
+                {!customerStore.customerLogin && (
                   <div className="text-center col-span-6 ">
                     <button
                       className="py-1 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-blue-700 hover:bg-blue-800 "
@@ -406,95 +410,48 @@ const SingleRestaurant = observer(() => {
                       เข้าสู่ระบบ/สมัครสมาชิก
                     </button>
                   </div>
-                  <div className="col-span-2 pt-2">ชื่อ:</div>
-                  <div className="col-span-4">
-                    <input
-                      type="text"
-                      name="firstname"
-                      id="firstname"
-                      placeholder="ชื่อ"
-                      value={selfReserv.firstname}
-                      onChange={onChangeValue}
-                      autoComplete="given-name"
-                      className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                    />
-                  </div>
-                  <div className="col-span-2 pt-2">นามสกุล:</div>
-                  <div className="col-span-4">
-                    <input
-                      type="text"
-                      name="lastname"
-                      id="lastname"
-                      placeholder="นามสกุล"
-                      value={selfReserv.lastname}
-                      onChange={onChangeValue}
-                      autoComplete="given-name"
-                      className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                    />
-                  </div>
-                  <div className="col-span-2 pt-2">เบอร์โทรศัพท์:</div>
-                  <div className="col-span-4">
-                    <input
-                      type="text"
-                      name="phoneNumber"
-                      id="phoneNumber"
-                      placeholder="เบอร์โทรศัพท์"
-                      value={selfReserv.phoneNumber}
-                      onChange={onChangeValue}
-                      autoComplete="given-name"
-                      className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                    />
-                  </div>
-                </>
-              )}
-              {customerStore.customerLogin?.username && (
-                <>
-                  {" "}
-                  <div className="text-center col-span-6 font-semibold">
-                    ข้อมูลส่วนตัว
-                  </div>
-                  <div className="col-span-2 pt-2">ชื่อ:</div>
-                  <div className="col-span-4">
-                    <input
-                      disabled
-                      type="text"
-                      name="firstname"
-                      id="firstname"
-                      placeholder="ชื่อ"
-                      value={customerStore.customerLogin.firstname}
-                      // onChange={onChangeValue}
-                      autoComplete="given-name"
-                      className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                    />
-                  </div>
-                  <div className="col-span-2 pt-2">นามสกุล:</div>
-                  <div className="col-span-4">
-                    <input
-                      type="text"
-                      name="lastname"
-                      id="lastname"
-                      placeholder="นามสกุล"
-                      value={customerStore.customerLogin.lastname}
-                      // onChange={onChangeValue}
-                      autoComplete="given-name"
-                      className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                    />
-                  </div>
-                  <div className="col-span-2 pt-2">เบอร์โทรศัพท์:</div>
-                  <div className="col-span-4">
-                    <input
-                      type="text"
-                      name="phoneNumber"
-                      id="phoneNumber"
-                      placeholder="เบอร์โทรศัพท์"
-                      value={customerStore.customerLogin.phoneNumber}
-                      // onChange={onChangeValue}
-                      autoComplete="given-name"
-                      className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
-                    />
-                  </div>
-                </>
-              )}
+                )}
+                <div className="col-span-2 pt-2">ชื่อ:</div>
+                <div className="col-span-4">
+                  <input
+                    type="text"
+                    name="firstname"
+                    id="firstname"
+                    placeholder="ชื่อ"
+                    value={selfReserv.firstname}
+                    onChange={onChangeValue}
+                    autoComplete="given-name"
+                    className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
+                  />
+                </div>
+                <div className="col-span-2 pt-2">นามสกุล:</div>
+                <div className="col-span-4">
+                  <input
+                    type="text"
+                    name="lastname"
+                    id="lastname"
+                    placeholder="นามสกุล"
+                    value={selfReserv.lastname}
+                    onChange={onChangeValue}
+                    autoComplete="lastname"
+                    className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
+                  />
+                </div>
+                <div className="col-span-2 pt-2">เบอร์โทรศัพท์:</div>
+                <div className="col-span-4">
+                  <input
+                    type="text"
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    placeholder="เบอร์โทรศัพท์"
+                    value={selfReserv.phoneNumber}
+                    onChange={onChangeValue}
+                    autoComplete="phoneNumber"
+                    required
+                    className="p-1 pl-1 pt-2 mb-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full border-1 border-gray-300 lg:text-sm  rounded-md"
+                  />
+                </div>
+              </>
             </>
           )}
 
@@ -542,11 +499,9 @@ const SingleRestaurant = observer(() => {
                   <button
                     disabled={
                       step === 4
-                        ? customerStore.customerLogin?.username
-                          ? false
-                          : selfReserv.firstname === "" ||
-                            selfReserv.lastname === "" ||
-                            selfReserv.phoneNumber === ""
+                        ? selfReserv.firstname === "" ||
+                          selfReserv.lastname === "" ||
+                          selfReserv.phoneNumber === ""
                         : false
                     }
                     className={

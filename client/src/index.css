@@ -17,3 +17,13 @@ code {
   width: 100vw;
   height: 100vh;
 }
+.my-facebook-button-class{
+  color: white;
+
+  padding-right:5px ;
+  padding-left: 5px;
+  width: full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

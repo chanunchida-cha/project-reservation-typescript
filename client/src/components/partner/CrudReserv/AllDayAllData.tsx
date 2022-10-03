@@ -131,28 +131,28 @@ const AllDayAllData = observer(() => {
             .slice(pagesVisited, pagesVisited + dataPerPage)
             .map((reserv, index) => {
               return (
-                <tr  onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  key={index} className="bg-white hover:bg-gray-100">
-                  <td  className="px-1 py-2 border-b  border-gray-200   text-sm text-center">
+                <tr   key={index} className="bg-white hover:bg-gray-100">
+                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-1 py-2 border-b  border-gray-200   text-sm text-center">
                     <a  className="text-gray-900 whitespace-no-wrap">
                       {reserv.reservNumber}
                     </a>
                   </td>
-                  <td className="px-3 py-2 border-b border-gray-200  text-sm text-center">
+                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-2 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {new Date(reserv.day).toLocaleDateString("en-GB")}
                     </p>
                   </td>
-                  <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {`${reserv.start} - ${reserv.end}`}
                     </p>
                   </td>
-                  <td className="px-2 py-3 border-b border-gray-200  text-sm text-center">
+                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-2 py-3 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.amount}
                     </p>
                   </td>
-                  <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.table
                         .map((table) => {
@@ -162,14 +162,14 @@ const AllDayAllData = observer(() => {
                     </p>
                   </td>
                   {reserv.self_reserv && (
-                    <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                    <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                       <p className="text-gray-900 whitespace-no-wrap">
                         {`${reserv.self_reserv.firstname}  ${reserv.self_reserv.lastname}`}
                       </p>
                     </td>
                   )}
                   {reserv.customer!.length > 0 && (
-                    <td className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                    <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
                       <p className="text-gray-900 whitespace-no-wrap">
                         {reserv.customer!.map((customer) => {
                           return `${customer.firstname}  ${customer.lastname} `;
@@ -177,7 +177,7 @@ const AllDayAllData = observer(() => {
                       </p>
                     </td>
                   )}
-                  <td className="px-2 py-3 border-b border-gray-200  text-sm text-center ">
+                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-2 py-3 border-b border-gray-200  text-sm text-center ">
                     <div className="flex items-center justify-center p-2">
                       <Listbox
                         as="div"
@@ -283,7 +283,7 @@ const AllDayAllData = observer(() => {
                   </td>
                   <td className="px-2 py-3 border-b border-gray-200 text-sm ">
                     <button
-                      className="py-1 px-3 mr-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
+                      className="z-50 py-1 px-3 mr-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800"
                       onClick={() => {
                         navigate(
                           `/partner/reservationdata/allday/edit/${reserv.partner_id}/${reserv._id}`
@@ -293,7 +293,7 @@ const AllDayAllData = observer(() => {
                       แก้ไข
                     </button>
                     <button
-                      className="py-1 px-3 border border-transparent text-sm font-medium rounded-md text-white bg-red-700 hover:bg-red-800"
+                      className=" z-50 py-1 px-3 border border-transparent text-sm font-medium rounded-md text-white bg-red-700 hover:bg-red-800"
                       onClick={() => {
                         confirmDelete(reserv._id);
                       }}
