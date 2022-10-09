@@ -95,15 +95,9 @@ const SingleRestaurant = observer(() => {
     lastname: string;
     phoneNumber: string;
   }>({
-    firstname: customerStore.customerLogin?.firstname
-      ? customerStore.customerLogin?.firstname
-      : "",
-    lastname: customerStore.customerLogin?.lastname
-      ? customerStore.customerLogin?.lastname
-      : "",
-    phoneNumber: customerStore.customerLogin?.phoneNumber
-      ? customerStore.customerLogin?.phoneNumber
-      : "",
+    firstname: "",
+    lastname: "",
+    phoneNumber: "",
   });
   const [navbar, setNavbar] = useState(true);
   const [step, setStep] = useState(1);
@@ -127,6 +121,16 @@ const SingleRestaurant = observer(() => {
       await partnerStore.getMenuByRestId(id!);
       await partnerStore.getInfoRestaurantById(id!);
       await partnerStore.getTableByRestId(id!);
+      if (customerStore.customerLogin) {
+        setSelfReserv({
+          firstname: customerStore.customerLogin.firstname,
+          lastname: customerStore.customerLogin.lastname,
+          phoneNumber:
+            customerStore.customerLogin.phoneNumber === undefined
+              ? ""
+              : customerStore.customerLogin.phoneNumber,
+        });
+      }
     };
     getSingleRestaurant();
     window.addEventListener("scroll", scrollNav);

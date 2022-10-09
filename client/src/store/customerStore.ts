@@ -124,6 +124,33 @@ class CustomerStore {
       throw err;
     }
   }
+  async loginGoogle(tokenId: string, googleId: string) {
+  
+    
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_AUTH}/login-google`,
+        {
+          tokenId: tokenId,
+          googleId: googleId,
+        }
+      );
+      sessionStorage.setItem("token", JSON.stringify(response.data.token));
+      console.log("logingoogle");
+
+      this.customerLogin = response.data;
+    } catch (err) {
+      if (err instanceof Error) {
+        await Swal.fire({
+          icon: "error",
+          title: "Sorry",
+          text: err.message,
+        });
+      }
+      console.log(err);
+      throw err;
+    }
+  }
   async loginFaceBook(accessToken: string, userID: string) {
     try {
       const response = await axios.post(

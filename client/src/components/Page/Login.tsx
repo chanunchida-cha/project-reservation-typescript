@@ -1,10 +1,16 @@
 import { observer } from "mobx-react-lite";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { adminStore } from "../../store/adminStore";
 import { customerStore } from "../../store/customerStore";
 import { partnerStore } from "../../store/partnerStore";
 import FacebookLogin from "react-facebook-login";
+import {
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
+import { gapi } from "gapi-script";
 
 type InfoLogin = {
   username: string;
@@ -67,6 +73,26 @@ const Login = observer(() => {
     await customerStore.loginFaceBook(response.accessToken, response.userID);
     navigate("/");
   };
+
+  useEffect(() => {
+    gapi.load("client:auth2", () => {
+      gapi.auth2.init({ clientId: `${process.env.REACT_APP_GOOGLE_ID}` });
+    });
+  }, []);
+
+  const responseSuccessGoogle = async (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) => {
+    if ("tokenId" in response) {
+      await customerStore.loginGoogle(response.tokenId,response.googleId);
+    }
+
+    navigate("/");
+  };
+  const responseErrorGoogle = (response: any) => {
+    console.log(response);
+  };
+
   return (
     <div className="max-w-2xl mx-auto bg-white p-16">
       <div className="mb-6 flex mt-12 justify-center font-semibold text-lg">
@@ -82,6 +108,20 @@ const Login = observer(() => {
               cssClass="my-facebook-button-class"
               textButton="เข้าสู่ระบบด้วยเฟซบุ๊ก"
             />
+          </div>
+          <div className="mb-6 flex justify-center  ">
+            <GoogleLogin
+              clientId={`${process.env.REACT_APP_GOOGLE_ID}`}
+              render={renderProps => (
+                <button onClick={renderProps.onClick} style={{fontSize:"16px"}}>เข้าสู่ระบบด้วย Google</button>
+              )}
+              buttonText="เข้าสู่ระบบด้วย Google"
+              onSuccess={responseSuccessGoogle}
+              onFailure={responseErrorGoogle}
+              cookiePolicy={"single_host_origin"}
+              className="w-full"
+            />
+            ,
           </div>
           <div>
             <a className=" flex justify-center w-full text-gray-500 text-sm">

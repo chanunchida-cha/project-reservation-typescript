@@ -14,7 +14,6 @@ const users = new mongoose_1.default.Schema({
     username: {
         type: String,
         required: true,
-        unique: true,
     },
     email: {
         type: String,
@@ -36,8 +35,11 @@ const users = new mongoose_1.default.Schema({
         type: String,
     },
     facebook_id: {
-        type: String
-    }
+        type: String,
+    },
+    google_id: {
+        type: String,
+    },
 });
 const Users = mongoose_1.default.model("Users", users);
 exports.default = Users;

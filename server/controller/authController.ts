@@ -5,6 +5,9 @@ import partners from "../models/partnerDB";
 import Users from "../models/userDB";
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+import { OAuth2Client, LoginTicket } from "google-auth-library";
+
+const client = new OAuth2Client(process.env.CLIENT_ID_GOOGLE);
 
 //----------customer------------------------
 
@@ -40,15 +43,18 @@ export const facebookLogin = async (req: Request, res: Response) => {
 
   const urlGrapFacebook = `https://graph.facebook.com/${userID}?fields=id,name,email,picture&access_token=${accessToken}`;
   try {
-    const response: { data:{name:string,id:string,email:string} } = await axios.get(
-      urlGrapFacebook
-    );
+    const response: { data: { name: string; id: string; email: string } } =
+      await axios.get(urlGrapFacebook);
     console.log(response);
 
-    const { id, name,email } = response.data;
+    const { id, name, email } = response.data;
     const user = await Users.findOne({ email: email });
 
-    if (user) {
+    console.log();
+
+    if (user && !user.facebook_id) {
+      res.status(404).json({ error: "อีเมล์นี้ถูกใช้งานแล้ว " });
+    } else if (user && user.facebook_id) {
       const token = jwt.sign(
         { user_id: user._id, name },
         process.env.JWT_SECRET,
@@ -71,7 +77,7 @@ export const facebookLogin = async (req: Request, res: Response) => {
         email: email,
         password: password,
         confirmPass: confrimPassword,
-        facebook_id: accessToken,
+        facebook_id: id,
       });
       const token = jwt.sign(
         { user_id: user._id, email },
@@ -83,6 +89,63 @@ export const facebookLogin = async (req: Request, res: Response) => {
       user.token = token;
       res.status(200).json(user);
     }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const googleLogin = async (req: Request, res: Response) => {
+  const { tokenId, googleId } = req.body;
+
+  try {
+    const response = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: process.env.CLIENT_ID_GOOGLE,
+    });
+
+    const email_verified = response.getPayload()?.email_verified;
+    const name = response.getPayload()?.name;
+    const email = response.getPayload()?.email;
+    console.log(response.getPayload()?.email_verified);
+
+    if (email_verified) {
+      const user = await Users.findOne({ email: email });
+      if (user && !user.google_id) {
+        res.status(404).json({ error: "อีเมล์นี้ถูกใช้งานแล้ว" });
+      } else if (user && user.google_id) {
+        const token = jwt.sign(
+          { user_id: user._id, name },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "5h",
+          }
+        );
+        user.token = token;
+        res.status(200).json(user);
+      } else {
+        const password = await bcrypt.hash("123456", 10);
+        const confrimPassword = await bcrypt.hash("123456", 10);
+        const user = await Users.create({
+          username: name,
+          firstname: name,
+          lastname: name,
+          email: email,
+          password: password,
+          confirmPass: confrimPassword,
+          google_id: googleId,
+        });
+        const token = jwt.sign(
+          { user_id: user._id, email },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "5h",
+          }
+        );
+        user.token = token;
+        res.status(200).json(user);
+      }
+    }
+    res.status(404).json({ error: "กรุณาตรวจสอบ username และ รหัสผ่าน" });
   } catch (err) {
     console.log(err);
   }

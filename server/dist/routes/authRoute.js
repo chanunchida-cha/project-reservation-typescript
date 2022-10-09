@@ -7,6 +7,7 @@ const auth = require("../middleware/auth");
 //---------------customer---------------------------
 router.route("/login-customer").post(authController_1.customerLogin);
 router.route("/login-facebook").post(authController_1.facebookLogin);
+router.route("/login-google").post(authController_1.googleLogin);
 router.route("/get-customer").get(auth, authController_1.getCustomer);
 //---------------partner---------------------------
 router.route("/login-partner").post(authController_1.partnerLogin);

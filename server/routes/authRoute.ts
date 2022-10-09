@@ -7,6 +7,7 @@ import {
   adminLogin,
   getAdmin,
   facebookLogin,
+  googleLogin
 } from "../controller/authController";
 const router = Router();
 const auth = require("../middleware/auth");
@@ -14,6 +15,7 @@ const auth = require("../middleware/auth");
 //---------------customer---------------------------
 router.route("/login-customer").post(customerLogin);
 router.route("/login-facebook").post(facebookLogin);
+router.route("/login-google").post(googleLogin);
 router.route("/get-customer").get(auth, getCustomer);
 
 //---------------partner---------------------------

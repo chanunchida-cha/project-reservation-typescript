@@ -10,22 +10,19 @@ export type User = {
   phoneNumber?: string;
   password: string;
   confirmPass: string;
-  facebook_id?:string
+  facebook_id?: string;
 };
 
 const users = new mongoose.Schema({
   firstname: {
     type: String,
-
   },
   lastname: {
     type: String,
-
   },
   username: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
@@ -34,7 +31,6 @@ const users = new mongoose.Schema({
   },
   phoneNumber: {
     type: String,
-
   },
   password: {
     type: String,
@@ -47,9 +43,12 @@ const users = new mongoose.Schema({
   token: {
     type: String,
   },
-  facebook_id:{
-    type:String
-  }
+  facebook_id: {
+    type: String,
+  },
+  google_id: {
+    type: String,
+  },
 });
 
 const Users = mongoose.model("Users", users);
