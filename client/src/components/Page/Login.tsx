@@ -113,7 +113,7 @@ const Login = observer(() => {
             <GoogleLogin
               clientId={`${process.env.REACT_APP_GOOGLE_ID}`}
               render={renderProps => (
-                <button onClick={renderProps.onClick} style={{fontSize:"16px"}}>เข้าสู่ระบบด้วย Google</button>
+                <button onClick={renderProps.onClick} className="border border-gray-400 hover:bg-gray-200 w-full px-5 py-2 rounded-lg" style={{fontSize:"14px" }}>เข้าสู่ระบบด้วย Google</button>
               )}
               buttonText="เข้าสู่ระบบด้วย Google"
               onSuccess={responseSuccessGoogle}
@@ -121,7 +121,7 @@ const Login = observer(() => {
               cookiePolicy={"single_host_origin"}
               className="w-full"
             />
-            ,
+            
           </div>
           <div>
             <a className=" flex justify-center w-full text-gray-500 text-sm">
@@ -135,7 +135,7 @@ const Login = observer(() => {
           <div className="mb-6">
             <label
               htmlFor="username"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="block mb-2 text-sm font-medium text-gray-900 "
             >
               username
             </label>
@@ -143,7 +143,7 @@ const Login = observer(() => {
               type="text"
               id="username"
               name="username"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="username"
               value={infoLogin.username}
               onChange={onChangeInput}
@@ -153,7 +153,7 @@ const Login = observer(() => {
           <div className="mb-6">
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="block mb-2 text-sm font-medium text-gray-900 "
             >
               รหัสผ่าน
             </label>
@@ -161,7 +161,7 @@ const Login = observer(() => {
               type="password"
               id="password"
               name="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="•••••••••"
               value={infoLogin.password}
               onChange={onChangeInput}
@@ -169,21 +169,20 @@ const Login = observer(() => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 mb-6">
-          <div className="flex justify-start text-sm">
+       {role !== "admin" && <div className=" mb-6">
+          <div className="flex justify-center text-sm">
+            <a>สมาชิกใหม่? </a>
             <a
               href={
                 role === "customer" ? "/customer/register" : "/partner/register"
               }
-              className="hover:text-blue-800"
+              className="ml-2 text-blue-700 font-medium hover:text-blue-800"
             >
-              สมาชิกใหม่?
+              สมัครสมาชิก
             </a>
           </div>
-          <div className="flex justify-end text-sm">
-            <a className="hover:text-blue-800">ลืมรหัสผ่าน?</a>
-          </div>
-        </div>
+         
+        </div>}
         <button
           type="submit"
           className="w-full sm:w-full md:w-full lg:w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm   px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

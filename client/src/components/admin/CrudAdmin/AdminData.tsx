@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { rudStore } from "../../../store/rudStore";
 import ReactPaginate from "react-paginate";
+import SearchText from "../../searchText/SearchText";
 
 const AdminData = observer(() => {
   const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(0);
-
+  const [searchText, setSearchText] = useState("");
   const dataPerPage = 3;
   const pagesVisited = pageNumber * dataPerPage;
 
@@ -37,7 +38,13 @@ const AdminData = observer(() => {
   };
 
   const displayData = allAdmin
+    .filter(
+      (admin) =>
+        admin.firstname.includes(searchText) ||
+        admin.lastname.includes(searchText)
+    )
     .slice(pagesVisited, pagesVisited + dataPerPage)
+
     .map((admin) => {
       return (
         <div
@@ -118,6 +125,9 @@ const AdminData = observer(() => {
         >
           เพิ่มข้อมูลผู้ดูแลระบบ
         </button>
+      </div>
+      <div className="mt-4">
+        <SearchText value={searchText} onChangeValue={setSearchText} />
       </div>
       <div className=" sm:h-[520px]  mt-5 rounded-md">{displayData}</div>
       {allAdmin.length > 3 && (

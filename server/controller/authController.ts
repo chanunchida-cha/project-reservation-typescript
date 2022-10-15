@@ -50,7 +50,7 @@ export const facebookLogin = async (req: Request, res: Response) => {
     const { id, name, email } = response.data;
     const user = await Users.findOne({ email: email });
 
-    console.log();
+    console.log(name);
 
     if (user && !user.facebook_id) {
       res.status(404).json({ error: "อีเมล์นี้ถูกใช้งานแล้ว " });

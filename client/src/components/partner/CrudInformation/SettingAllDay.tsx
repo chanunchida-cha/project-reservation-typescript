@@ -120,7 +120,6 @@ const days = [
 ] as const;
 function SettingAllDay(
   props: TimeLengthProps &
-    
     OnTimeLengthChange &
     OpenDay &
     OnChangeValue

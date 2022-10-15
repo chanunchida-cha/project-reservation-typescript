@@ -34,28 +34,14 @@ function MyRoute() {
           path={"/edit/myreservation/rounds/:partner_id/:reserv_id"}
           element={<EditMyReservRound />}
         />
-            <Route
-          path={"/myprofile"}
-          element={<MyProfile />}
-          
+        <Route path={"/myprofile"} element={<MyProfile />} />
+        <Route path={"/myprofile/edit"} element={<EditProfile />} />
+        <Route path={"/edit/password"} element={<EditPassword />} />
+        <Route path={"/history/reservation"} element={<HistoryReserv />} />
+        <Route
+          path={"/history/:type/:reserv_id/:partner_id"}
+          element={<SingleHistory />}
         />
-            <Route
-          path={"/myprofile/edit"}
-          element={<EditProfile />}
-          
-        />
-            <Route
-          path={"/edit/password"}
-          element={<EditPassword />}
-          
-        />
-             <Route
-          path={"/history/reservation"}
-          element={<HistoryReserv />}
-          
-        />
-        <Route path={"/history/:type/:reserv_id/:partner_id"} element={<SingleHistory/>}/>
-       
       </Routes>
     </LayOut>
   );

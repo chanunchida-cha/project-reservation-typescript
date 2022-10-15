@@ -2,9 +2,16 @@ import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
 import { customerStore } from "../../store/customerStore";
+import SearchText from "../searchText/SearchText";
+import ReactPaginate from "react-paginate";
 
 const HistoryReserv = observer(() => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [pageNumber, setPageNumber] = useState(0);
+  const [searchText, setSearchText] = useState("");
+  const dataPerPage = 3;
+  const pagesVisited = pageNumber * dataPerPage;
+
   useEffect(() => {
     const getHistory = async () => {
       await customerStore.getAllDayReservPending();
@@ -17,6 +24,38 @@ const HistoryReserv = observer(() => {
     getHistory();
   }, []);
 
+  const allHistory = [
+    ...customerStore.allDayHistory,
+    ...customerStore.roundHistory,
+  ];
+  const pageCount = Math.ceil(allHistory.length / dataPerPage);
+  const changePage = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected);
+  };
+  const displayData = allHistory
+    .filter((reserv) => {
+      return (
+        reserv.partner.restaurantName?.includes(searchText)
+      );
+    })
+    .slice(pagesVisited, pagesVisited + dataPerPage)
+    .map((reserv) => {
+      return (
+        <div
+          className="hover:bg-gray-50 border border-gray-200 shadow-md my-2 px-4 py-4"
+          onClick={() => {
+            navigate(`/history/allDay/${reserv._id}/${reserv.partner._id}`);
+          }}
+        >
+          <div className="font-semibold">{reserv.partner.restaurantName}</div>
+          <div>{`หมายเลขการจอง ${reserv.reservNumber}`}</div>
+          <div>{`วันที่ ${new Date(reserv.day).toLocaleDateString(
+            "en-GB"
+          )}`}</div>
+          <div>{reserv.status}</div>
+        </div>
+      );
+    });
   return (
     <div className="bg-white ">
       <div className="max-w-2xl mx-auto py-24 px-4 grid items-center grid-cols-1 gap-y-16 gap-x-8 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8 lg:grid-cols-2">
@@ -42,7 +81,8 @@ const HistoryReserv = observer(() => {
                 จำนวนการจองทั้งหมด
               </div>
               <div className="col-span-1 text-base font-semibold flex justify-end ">
-                {customerStore.allDayHistory.length + customerStore.roundHistory.length}
+                {customerStore.allDayHistory.length +
+                  customerStore.roundHistory.length}
               </div>
             </div>
           </div>
@@ -62,7 +102,11 @@ const HistoryReserv = observer(() => {
                 return (
                   <div
                     className="hover:bg-gray-50 border border-gray-200 shadow-md my-2 px-4 py-4"
-                  onClick={()=>{navigate(`/history/allDay/${reserv._id}/${reserv.partner._id}`)}}
+                    onClick={() => {
+                      navigate(
+                        `/history/allDay/${reserv._id}/${reserv.partner._id}`
+                      );
+                    }}
                   >
                     <div className="font-semibold">
                       {reserv.partner.restaurantName}
@@ -83,7 +127,11 @@ const HistoryReserv = observer(() => {
               return (
                 <div
                   className=" hover:bg-gray-50 border border-gray-200 rounded-md shadow-md my-4 px-4 py-4"
-                  onClick={()=>{navigate(`/history/rounds/${reserv._id}/${reserv.partner._id}`)}}
+                  onClick={() => {
+                    navigate(
+                      `/history/rounds/${reserv._id}/${reserv.partner._id}`
+                    );
+                  }}
                 >
                   <div className="font-semibold">
                     {reserv.partner.restaurantName}
@@ -114,7 +162,11 @@ const HistoryReserv = observer(() => {
               return (
                 <div
                   className="hover:bg-gray-50 border border-gray-200 shadow-md my-2 px-4 py-4"
-                  onClick={()=>{navigate(`/history/allDay/${reserv._id}/${reserv.partner._id}`)}}
+                  onClick={() => {
+                    navigate(
+                      `/history/allDay/${reserv._id}/${reserv.partner._id}`
+                    );
+                  }}
                 >
                   <div className="font-semibold">
                     {reserv.partner.restaurantName}
@@ -133,7 +185,11 @@ const HistoryReserv = observer(() => {
               return (
                 <div
                   className="hover:bg-gray-50 border border-gray-200 rounded-md shadow-md my-4 px-4 py-4"
-                  onClick={()=>{navigate(`/history/rounds/${reserv._id}/${reserv.partner._id}`)}}
+                  onClick={() => {
+                    navigate(
+                      `/history/rounds/${reserv._id}/${reserv.partner._id}`
+                    );
+                  }}
                 >
                   <div className="font-semibold">
                     {reserv.partner.restaurantName}
@@ -156,44 +212,29 @@ const HistoryReserv = observer(() => {
                 <div className="text-red-500">***ไม่มีประวัติการจอง***</div>
               )}
           </div>
-          <div className="col-span-1">
-            {customerStore.allDayHistory.map((reserv) => {
-              return (
-                <div
-                  className="hover:bg-gray-50 border border-gray-200 shadow-md my-2 px-4 py-4"
-                  onClick={()=>{navigate(`/history/allDay/${reserv._id}/${reserv.partner._id}`)}}
-                >
-                  <div className="font-semibold">
-                    {reserv.partner.restaurantName}
-                  </div>
-                  <div>{`หมายเลขการจอง ${reserv.reservNumber}`}</div>
-                  <div>{`วันที่ ${new Date(reserv.day).toLocaleDateString(
-                    "en-GB"
-                  )}`}</div>
-                  <div>{reserv.status}</div>
-                </div>
-              );
-            })}
+          <div className="mt-4">
+            <SearchText value={searchText} onChangeValue={setSearchText} />
           </div>
-          <div className="col-span-1 ">
-            {customerStore.roundHistory.map((reserv) => {
-              return (
-                <div
-                  className="hover:bg-gray-50 border border-gray-200 rounded-md shadow-md my-4 px-4 py-4"
-                  onClick={()=>{navigate(`/history/rounds/${reserv._id}/${reserv.partner._id}`)}}
-                >
-                  <div className="font-semibold">
-                    {reserv.partner.restaurantName}
-                  </div>
-                  <div>{`หมายเลขการจอง ${reserv.reservNumber}`}</div>
-                  <div>{`วันที่ ${new Date(reserv.day).toLocaleDateString(
-                    "en-GB"
-                  )}`}</div>
-                  <div>{reserv.status}</div>
-                </div>
-              );
-            })}
-          </div>
+          <div className="col-span-1">{displayData}</div>
+          {allHistory.length > 3 && (
+            <>
+              {" "}
+              <div className="border-b-2 border-gray-200" />
+              <div className="flex justify-center">
+                <ReactPaginate
+                  previousLabel={<i className="fa-solid fa-angles-left"></i>}
+                  nextLabel={<i className="fa-solid fa-angles-right"></i>}
+                  pageCount={pageCount}
+                  onPageChange={changePage}
+                  containerClassName={"paginationBttns"}
+                  previousLinkClassName={"previousBttn"}
+                  nextLinkClassName={"nextBttn"}
+                  disabledClassName={"paginationDisabled"}
+                  activeClassName={"paginationActive"}
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

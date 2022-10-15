@@ -4,11 +4,12 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { rudStore } from "../../../store/rudStore";
+import SearchText from "../../searchText/SearchText";
 
 const PartnerVerification = observer(() => {
   const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(0);
-
+  const [searchText, setSearchText] = useState("");
   const dataPerPage = 3;
   const pagesVisited = pageNumber * dataPerPage;
   useEffect(() => {
@@ -34,7 +35,14 @@ const PartnerVerification = observer(() => {
     });
   };
   const displayData = partnerVerifys
+    .filter((partnerVerify) => {
+      return (
+        partnerVerify.restaurantName?.includes(searchText) ||
+        partnerVerify.firstname.includes(searchText)
+      );
+    })
     .slice(pagesVisited, pagesVisited + dataPerPage)
+
     .map((partnerVerify) => {
       return (
         <div
@@ -109,6 +117,9 @@ const PartnerVerification = observer(() => {
         >
           เพิ่มข้อมูลร้านอาหาร
         </button>
+      </div>
+      <div className="mt-4">
+        <SearchText value={searchText} onChangeValue={setSearchText} />
       </div>
       <div className="h-[520px] overflow-x-auto mt-5 rounded-md">
         {displayData}

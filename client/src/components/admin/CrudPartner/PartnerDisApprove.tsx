@@ -4,10 +4,12 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { rudStore } from "../../../store/rudStore";
+import SearchText from "../../searchText/SearchText";
 
 const PartnerDisApprove = observer(() => {
   const navigate = useNavigate();
   const [pageNumber, setPageNumber] = useState(0);
+  const [searchText, setSearchText] = useState("");
   const dataPerPage = 3;
   const pagesVisited = pageNumber * dataPerPage;
   useEffect(() => {
@@ -34,7 +36,14 @@ const PartnerDisApprove = observer(() => {
   };
 
   const displayData = partnerDisApproves
+    .filter((partnerDisApprove) => {
+      return (
+        partnerDisApprove.restaurantName?.includes(searchText) ||
+        partnerDisApprove.firstname.includes(searchText)
+      );
+    })
     .slice(pagesVisited, pagesVisited + dataPerPage)
+
     .map((partnerDisApprove) => {
       return (
         <div
@@ -105,10 +114,10 @@ const PartnerDisApprove = observer(() => {
           ข้อมูลร้านอาหารที่ไม่ได้รับการอนุมัติ
         </h1>
       </div>
-      
-      <div className="h-[630px]  mt-5 rounded-md">
-        {displayData}
+      <div className="mt-4">
+        <SearchText value={searchText} onChangeValue={setSearchText} />
       </div>
+      <div className="h-[630px]  mt-5 rounded-md">{displayData}</div>
       {partnerDisApproves.length > 3 && (
         <>
           <div className="border-b-2 border-gray-200" />

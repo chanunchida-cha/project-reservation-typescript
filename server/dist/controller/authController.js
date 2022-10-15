@@ -53,7 +53,7 @@ const facebookLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         console.log(response);
         const { id, name, email } = response.data;
         const user = yield userDB_1.default.findOne({ email: email });
-        console.log();
+        console.log(name);
         if (user && !user.facebook_id) {
             res.status(404).json({ error: "อีเมล์นี้ถูกใช้งานแล้ว " });
         }

@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import SettingFilterData from "./SettingFilterData";
 import { partnerStore } from "../../../store/partnerStore";
+import SearchText from "../../searchText/SearchText";
 
 const initialStatus = ["pending", "arrived", "check out", "cancel"];
 const types = [
@@ -26,6 +27,7 @@ const types = [
 ];
 const RoundsAllData = observer(() => {
   const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [type, setType] = useState(types[0]);
   const [selected, setSelected] = useState();
@@ -65,7 +67,6 @@ const RoundsAllData = observer(() => {
     });
   };
 
-  
   const confirmDelete = (id: string) => {
     Swal.fire({
       title: "ยืนยันการลบข้อมูล",
@@ -121,7 +122,9 @@ const RoundsAllData = observer(() => {
                   new Date(startWithOutTime).getTime() &&
                 new Date(dayWithOutTime).getTime() <=
                   new Date(endWithOutTime).getTime();
-              if (type.key === "allReserv") {
+              if (searchText !== "") {
+                return reserv.reservNumber.includes(searchText);
+              } else if (type.key === "allReserv") {
                 return reserv;
               } else if (type.key === "rangeDate") {
                 return data;
@@ -130,28 +133,53 @@ const RoundsAllData = observer(() => {
             .slice(pagesVisited, pagesVisited + dataPerPage)
             .map((reserv, index) => {
               return (
-                <tr  key={index} className="bg-white hover:bg-gray-100">
-                  <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-1 py-2 border-b  border-gray-200   text-sm text-center">
+                <tr key={index} className="bg-white hover:bg-gray-100">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/round/${reserv._id}`);
+                    }}
+                    className="px-1 py-2 border-b  border-gray-200   text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.reservNumber}
                     </p>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-3 py-2 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/round/${reserv._id}`);
+                    }}
+                    className="px-3 py-2 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {new Date(reserv.day).toLocaleDateString("en-GB")}
                     </p>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/round/${reserv._id}`);
+                    }}
+                    className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {`${reserv.start} - ${reserv.end}`}
                     </p>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-2 py-3 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/round/${reserv._id}`);
+                    }}
+                    className="px-2 py-3 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.amount}
                     </p>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/round/${reserv._id}`);
+                    }}
+                    className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.table
                         .map((table) => {
@@ -161,14 +189,24 @@ const RoundsAllData = observer(() => {
                     </p>
                   </td>
                   {reserv.self_reserv && (
-                    <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                    <td
+                      onClick={() => {
+                        navigate(`/partner/reserv/round/${reserv._id}`);
+                      }}
+                      className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                    >
                       <p className="text-gray-900 whitespace-no-wrap">
                         {`${reserv.self_reserv.firstname}  ${reserv.self_reserv.lastname}`}
                       </p>
                     </td>
                   )}
                   {reserv.customer!.length > 0 && (
-                    <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                    <td
+                      onClick={() => {
+                        navigate(`/partner/reserv/round/${reserv._id}`);
+                      }}
+                      className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                    >
                       <p className="text-gray-900 whitespace-no-wrap">
                         {reserv.customer!.map((customer) => {
                           return `${customer.firstname}  ${customer.lastname} `;
@@ -176,7 +214,12 @@ const RoundsAllData = observer(() => {
                       </p>
                     </td>
                   )}
-                  <td onClick={()=>{ navigate(`/partner/reserv/round/${reserv._id}`)}} className="px-2 py-3 border-b border-gray-200  text-sm text-center ">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/round/${reserv._id}`);
+                    }}
+                    className="px-2 py-3 border-b border-gray-200  text-sm text-center "
+                  >
                     <div className="flex items-center justify-center p-2">
                       <Listbox
                         as="div"
@@ -362,7 +405,9 @@ const RoundsAllData = observer(() => {
           </>
         )}
       </div>
-
+      <div className="mt-4">
+        <SearchText value={searchText} onChangeValue={setSearchText} />
+      </div>
       <div className="h-[450px] mb-7 mt-5 rounded-md">{displayData}</div>
       {roundReservs.length > 3 && (
         <>

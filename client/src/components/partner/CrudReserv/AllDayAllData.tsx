@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import SettingFilterData from "./SettingFilterData";
 import { partnerStore } from "../../../store/partnerStore";
+import SearchText from "../../searchText/SearchText";
 
 const initialStatus = ["pending", "arrived", "check out", "cancel"];
 const types = [
@@ -26,6 +27,7 @@ const types = [
 ];
 const AllDayAllData = observer(() => {
   const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [type, setType] = useState(types[0]);
   const [selected, setSelected] = useState();
@@ -111,6 +113,7 @@ const AllDayAllData = observer(() => {
         <tbody>
           {allDayReservs
             .filter((reserv) => {
+
               const day = new Date(reserv.day).getTime();
               const start = new Date(startDate!).getTime();
               const end = new Date(endDate!).getTime();
@@ -122,7 +125,11 @@ const AllDayAllData = observer(() => {
                   new Date(startWithOutTime).getTime() &&
                 new Date(dayWithOutTime).getTime() <=
                   new Date(endWithOutTime).getTime();
-              if (type.key === "allReserv") {
+              if (searchText !== "") {
+                return (
+                  reserv.reservNumber.includes(searchText) 
+                );
+              } else if (type.key === "allReserv") {
                 return reserv;
               } else if (type.key === "rangeDate") {
                 return data;
@@ -131,28 +138,53 @@ const AllDayAllData = observer(() => {
             .slice(pagesVisited, pagesVisited + dataPerPage)
             .map((reserv, index) => {
               return (
-                <tr   key={index} className="bg-white hover:bg-gray-100">
-                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-1 py-2 border-b  border-gray-200   text-sm text-center">
-                    <a  className="text-gray-900 whitespace-no-wrap">
+                <tr key={index} className="bg-white hover:bg-gray-100">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/allday/${reserv._id}`);
+                    }}
+                    className="px-1 py-2 border-b  border-gray-200   text-sm text-center"
+                  >
+                    <a className="text-gray-900 whitespace-no-wrap">
                       {reserv.reservNumber}
                     </a>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-2 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/allday/${reserv._id}`);
+                    }}
+                    className="px-3 py-2 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {new Date(reserv.day).toLocaleDateString("en-GB")}
                     </p>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/allday/${reserv._id}`);
+                    }}
+                    className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {`${reserv.start} - ${reserv.end}`}
                     </p>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-2 py-3 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/allday/${reserv._id}`);
+                    }}
+                    className="px-2 py-3 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.amount}
                     </p>
                   </td>
-                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/allday/${reserv._id}`);
+                    }}
+                    className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                  >
                     <p className="text-gray-900 whitespace-no-wrap">
                       {reserv.table
                         .map((table) => {
@@ -162,14 +194,24 @@ const AllDayAllData = observer(() => {
                     </p>
                   </td>
                   {reserv.self_reserv && (
-                    <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                    <td
+                      onClick={() => {
+                        navigate(`/partner/reserv/allday/${reserv._id}`);
+                      }}
+                      className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                    >
                       <p className="text-gray-900 whitespace-no-wrap">
                         {`${reserv.self_reserv.firstname}  ${reserv.self_reserv.lastname}`}
                       </p>
                     </td>
                   )}
                   {reserv.customer!.length > 0 && (
-                    <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-3 py-3 border-b border-gray-200  text-sm text-center">
+                    <td
+                      onClick={() => {
+                        navigate(`/partner/reserv/allday/${reserv._id}`);
+                      }}
+                      className="px-3 py-3 border-b border-gray-200  text-sm text-center"
+                    >
                       <p className="text-gray-900 whitespace-no-wrap">
                         {reserv.customer!.map((customer) => {
                           return `${customer.firstname}  ${customer.lastname} `;
@@ -177,7 +219,12 @@ const AllDayAllData = observer(() => {
                       </p>
                     </td>
                   )}
-                  <td onClick={()=>{ navigate(`/partner/reserv/allday/${reserv._id}`)}}  className="px-2 py-3 border-b border-gray-200  text-sm text-center ">
+                  <td
+                    onClick={() => {
+                      navigate(`/partner/reserv/allday/${reserv._id}`);
+                    }}
+                    className="px-2 py-3 border-b border-gray-200  text-sm text-center "
+                  >
                     <div className="flex items-center justify-center p-2">
                       <Listbox
                         as="div"
@@ -364,7 +411,9 @@ const AllDayAllData = observer(() => {
           </>
         )}
       </div>
-
+      <div className="mt-4">
+        <SearchText value={searchText} onChangeValue={setSearchText} />
+      </div>
       <div className="h-[450px] mb-7 mt-5 rounded-md">{displayData}</div>
       {allDayReservs.length > 3 && (
         <>
