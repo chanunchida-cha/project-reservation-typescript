@@ -12,6 +12,8 @@ type Information = {
   username: string;
   password?: string;
   confirmPass?: string;
+  facebook_id?:string
+  google_id?:string
 };
 
 type Login = {

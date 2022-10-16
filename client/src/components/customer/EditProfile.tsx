@@ -100,7 +100,6 @@ const EditProfile = observer(() => {
             placeholder="0888888888"
             value={phoneNumber}
             onChange={onChangeInput}
-         
           />
         </div>
         <div className="mb-3">
@@ -141,9 +140,12 @@ const EditProfile = observer(() => {
           />
         </div>
 
-        <div className="  border-t pt-4 flex justify-center text-gray-700">
-          <a href="/edit/password">เปลี่ยนรหัสผ่าน</a>
-        </div>
+        {customerStore.customerLogin?.facebook_id ||
+        customerStore.customerLogin?.google_id ? null : (
+          <div className="  border-t pt-4 flex justify-center text-gray-700">
+            <a href="/edit/password">เปลี่ยนรหัสผ่าน</a>
+          </div>
+        )}
 
         <button
           type="submit"
