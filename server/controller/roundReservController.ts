@@ -117,21 +117,21 @@ export const customerRoundReserv = async (req: Request, res: Response) => {
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remaining_tables.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     }
@@ -318,21 +318,21 @@ export const updateCustomerRoundReserv = async (
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remain_n.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     } else if (duplicateTable.length >= 1) {
@@ -473,21 +473,21 @@ export const selfRoundReserv = async (req: Request, res: Response) => {
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remaining_tables.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     }
@@ -671,21 +671,21 @@ export const updateSelfRoundReserv = async (req: Request, res: Response) => {
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remain_n.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     } else if (duplicateTable.length >= 1) {

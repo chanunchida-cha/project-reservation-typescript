@@ -57,15 +57,13 @@ class AdminStore {
         "success"
       );
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
 
@@ -81,14 +79,13 @@ class AdminStore {
       );
       sessionStorage.setItem("token", JSON.stringify(response.data.token));
       this.adminLogin = response.data;
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -130,16 +127,13 @@ class AdminStore {
       );
       Swal.fire("แก้ไขข้อมูลสำเร็จ!", "", "success");
       this.getAdmin();
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
     }
   }
   async resetPassword(allPassword: Password) {
@@ -162,14 +156,13 @@ class AdminStore {
         "success"
       );
       this.logout();
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       throw err;
     }
   }

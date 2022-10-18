@@ -1,17 +1,27 @@
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { partnerStore } from "../../store/partnerStore";
+import ElementStatus from "./ElementStatus";
 import PartnerRoute from "./PartnerRoute";
 
 const sideBar = observer(() => {
   const navigate = useNavigate();
+  const location = useLocation();
   const token = sessionStorage.getItem("token");
   const partner = partnerStore.partnerLogin;
   if (!token) {
     navigate("/partner/login");
   }
+
+  console.log(location.pathname);
+
   return (
+    <>
+    {(partner?.status === "disapprove" || partner?.status === "verification") && (
+        <div>
+          <ElementStatus />
+        </div>
+      )}
     <div className="h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
       {/* Header */}
       <div className="fixed w-full flex items-center  text-2xl font-semibold  h-14 text-black z-10">
@@ -32,7 +42,11 @@ const sideBar = observer(() => {
             <li>
               <a
                 href="/partner/dashboard"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                className={
+                  location.pathname === "/partner/dashboard"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <svg
@@ -69,9 +83,13 @@ const sideBar = observer(() => {
             <li>
               <a
                 href={`/partner/information`}
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                className={
+                  location.pathname === "/partner/information"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex text-sm  justify-center items-center ml-10 tracking-wide truncate">
                   ข้อมูลร้านอาหาร
                 </span>
               </a>
@@ -79,9 +97,13 @@ const sideBar = observer(() => {
             <li>
               <a
                 href={`/partner/menu`}
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                className={
+                  location.pathname === "/partner/menu"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex text-sm  justify-center items-center ml-10 tracking-wide truncate">
                   เมนูอาหาร
                 </span>
               </a>
@@ -89,9 +111,13 @@ const sideBar = observer(() => {
             <li>
               <a
                 href={`/partner/table`}
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                className={
+                  location.pathname === "/partner/table"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex justify-center text-sm items-center ml-10 tracking-wide truncate">
                   โต๊ะอาหาร
                 </span>
               </a>
@@ -109,9 +135,13 @@ const sideBar = observer(() => {
             <li>
               <a
                 href="/partner/reservation"
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                className={
+                  location.pathname === "/partner/reservation"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex justify-center text-sm items-center ml-10 tracking-wide truncate">
                   ข้อมูลการจอง
                 </span>
               </a>
@@ -119,9 +149,14 @@ const sideBar = observer(() => {
             <li>
               <a
                 href={`/partner/create/reservation/${partner?._id}`}
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                className={
+                  location.pathname ===
+                  `/partner/create/reservation/${partner?._id}`
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex justify-center text-sm items-center ml-10 tracking-wide truncate">
                   เพิ่มการจอง
                 </span>
               </a>
@@ -130,7 +165,11 @@ const sideBar = observer(() => {
             <li>
               <a
                 href="/partner/report"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
+                className={
+                  location.pathname === "/partner/report"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <i className="fa-solid fa-chart-column w-6"></i>
@@ -153,9 +192,13 @@ const sideBar = observer(() => {
             <li>
               <a
                 href="/partner/edit/password"
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                className={
+                  location.pathname === "/partner/edit/password"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex justify-center text-sm items-center ml-10 tracking-wide truncate">
                   เปลี่ยนรหัสผ่าน
                 </span>
               </a>
@@ -187,6 +230,7 @@ const sideBar = observer(() => {
         </div>
       </div>
     </div>
+    </>
   );
 });
 

@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useState, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { partnerStore } from "../../../store/partnerStore";
 
 type Information = {
@@ -26,6 +27,7 @@ const startinfo = {
 };
 
 const CreatePartner = observer(() => {
+  const navigate = useNavigate()
   const [info, setInfo] = useState<Information>(startinfo);
 
   function onChangeInput(event: ChangeEvent<HTMLInputElement>) {
@@ -41,6 +43,7 @@ const CreatePartner = observer(() => {
     event.preventDefault();
 
     await partnerStore.createPartner(info);
+    navigate("/admin/partner/verification")
   }
   return (
     <div>

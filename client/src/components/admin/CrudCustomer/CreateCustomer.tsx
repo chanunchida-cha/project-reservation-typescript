@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { customerStore } from "../../../store/customerStore";
 
 type Information = {
@@ -25,7 +26,7 @@ const startinfoAdmin = {
 
 const CreateCustomer = observer(() => {
   const [info, setInfo] = useState<Information>(startinfoAdmin);
-
+  const navigate = useNavigate();
   function onChangeInput(event: ChangeEvent<HTMLInputElement>) {
     setInfo((prevInfo) => {
       return {
@@ -38,6 +39,7 @@ const CreateCustomer = observer(() => {
   async function createAdmin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     await customerStore.createCustomer(info);
+    navigate("/admin/customersdata");
   }
 
   return (

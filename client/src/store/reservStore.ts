@@ -110,15 +110,12 @@ class ReservStore {
       );
       this.thisReserv = response.data;
       Swal.fire("จองคิวสำเร็จ!", "การจองคิวเรียบร้อยแล้ว", "success");
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
-      console.log(err);
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
       throw err;
     }
   }
@@ -142,14 +139,13 @@ class ReservStore {
       );
       this.thisReserv = response.data;
       Swal.fire("จองคิวสำเร็จ!", "การจองคิวเรียบร้อยแล้ว", "success");
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -179,16 +175,14 @@ class ReservStore {
       Swal.fire("จองคิวสำเร็จ!", "การจองคิวเรียบร้อยแล้ว", "success");
       this.thisReserv = response.data;
       console.log(this.thisReserv._id);
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
   async customerRoundReserv(
@@ -214,16 +208,14 @@ class ReservStore {
       Swal.fire("จองคิวสำเร็จ!", "การจองคิวเรียบร้อยแล้ว", "success");
       this.thisReserv = response.data;
       console.log(this.thisReserv._id);
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
 
@@ -251,14 +243,12 @@ class ReservStore {
       );
       Swal.fire("แก้ไขข้อมูลเรียบร้อยแล้ว", "update success!", "success");
       this.getAllDayReserv();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
       console.log(err);
       throw err;
     }
@@ -287,14 +277,13 @@ class ReservStore {
       );
       Swal.fire("แก้ไขข้อมูลเรียบร้อยแล้ว", "update success!", "success");
       this.getAllDayReserv();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -325,14 +314,13 @@ class ReservStore {
       );
       Swal.fire("แก้ไขข้อมูลเรียบร้อยแล้ว", "update success!", "success");
       this.getAllDayReserv();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -363,14 +351,13 @@ class ReservStore {
       );
       Swal.fire("แก้ไขข้อมูลเรียบร้อยแล้ว", "update success!", "success");
       this.getAllDayReserv();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -387,14 +374,13 @@ class ReservStore {
       Swal.fire("แก้ไขสถานะเรียบร้อยแล้ว", "update success!", "success");
       this.getAllDayReserv();
       this.getAllDayReservById(id);
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -411,14 +397,12 @@ class ReservStore {
       Swal.fire("แก้ไขสถานะเรียบร้อยแล้ว", "update success!", "success");
       this.getRoundReserv();
       this.getRoundReservById(id);
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
       console.log(err);
       throw err;
     }
@@ -516,14 +500,12 @@ class ReservStore {
         "success"
       );
       this.getAllDayReserv();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.response.data.error,
+      });
     }
   }
 
@@ -540,14 +522,12 @@ class ReservStore {
         "success"
       );
       this.getRoundReserv();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
     }
   }
 }

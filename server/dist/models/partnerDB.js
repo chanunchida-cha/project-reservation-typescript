@@ -8,7 +8,6 @@ const partnerSchema = new mongoose_1.default.Schema({
     restaurantName: {
         type: String,
         required: true,
-        unique: true,
     },
     firstname: {
         type: String,
@@ -21,7 +20,6 @@ const partnerSchema = new mongoose_1.default.Schema({
     username: {
         type: String,
         required: true,
-        unique: true,
     },
     email: {
         type: String,

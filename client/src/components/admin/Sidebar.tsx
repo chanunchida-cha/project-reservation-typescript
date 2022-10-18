@@ -1,11 +1,12 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import AdminRoute from "./AdminRoute";
 import { adminStore } from "../../store/adminStore";
 
 const SideBar = observer(() => {
   const navigate = useNavigate();
+  const location = useLocation();
   const token = sessionStorage.getItem("token");
   const admin = adminStore.adminLogin;
   if (!token) {
@@ -32,7 +33,11 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/dashboard"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700 dark:hover:border-gray-800 pr-6"
+                className={
+                  location.pathname === "/admin/dashboard"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <svg
@@ -69,9 +74,13 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/partner/verification"
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700  pr-6"
+                className={
+                  location.pathname === "/admin/partner/verification"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex justify-center text-sm items-center ml-10 tracking-wide truncate">
                   รออนุมัติ
                 </span>
               </a>
@@ -79,9 +88,13 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/partner/approve"
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700  pr-6"
+                className={
+                  location.pathname === "/admin/partner/approve"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex text-sm justify-center items-center ml-10 tracking-wide truncate">
                   อนุมัติ
                 </span>
               </a>
@@ -89,9 +102,13 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/partner/disapprove"
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700  pr-6"
+                className={
+                  location.pathname === "/admin/partner/disapprove"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex text-sm justify-center items-center ml-10 tracking-wide truncate">
                   ไม่อนุมัติ
                 </span>
               </a>
@@ -99,7 +116,11 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/adminsdata"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700 dark:hover:border-gray-800 pr-6"
+                className={
+                  location.pathname === "/admin/adminsdata"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <i className="fa-solid fa-user-gear w-6"></i>
@@ -112,7 +133,11 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/customersdata"
-                className="relative flex flex-row items-center  h-11 focus:outline-none hover:bg-blue-200 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700 dark:hover:border-gray-800 pr-6"
+                className={
+                  location.pathname === "/admin/customersdata"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <i className="fa-solid fa-user w-6"></i>
@@ -125,7 +150,11 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/report"
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700 dark:hover:border-gray-800 pr-6"
+                className={
+                  location.pathname === "/admin/report"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   <i className="fa-solid fa-chart-column w-6"></i>
@@ -148,9 +177,13 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/edit/profile"
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700  pr-6"
+                className={
+                  location.pathname === "/admin/edit/profile"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex justify-center text-sm items-center ml-10 tracking-wide truncate">
                   แก้ไขข้อมูลส่วนตัว
                 </span>
               </a>
@@ -158,9 +191,13 @@ const SideBar = observer(() => {
             <li>
               <a
                 href="/admin/edit/password"
-                className="relative flex flex-row items-center text-sm h-11 focus:outline-none hover:bg-blue-200 hover:text-white-800 border-l-4 border-transparent hover:border-blue-700  pr-6"
+                className={
+                  location.pathname === "/admin/edit/password"
+                    ? " relative flex flex-row items-center h-11 focus:outline-none bg-blue-200  text-white-600 text-white-800 border-l-4 border-transparent border-blue-500  pr-6"
+                    : " relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-200  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6"
+                }
               >
-                <span className="inline-flex justify-center items-center ml-10 tracking-wide truncate">
+                <span className="inline-flex text-sm justify-center items-center ml-10 tracking-wide truncate">
                   เปลี่ยนรหัสผ่าน
                 </span>
               </a>

@@ -2,6 +2,7 @@ import { getToken } from "../services/authorize";
 import { makeAutoObservable } from "mobx";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { AnyMxRecord } from "dns";
 
 type Information = {
   _id?: string;
@@ -12,8 +13,8 @@ type Information = {
   username: string;
   password?: string;
   confirmPass?: string;
-  facebook_id?:string
-  google_id?:string
+  facebook_id?: string;
+  google_id?: string;
 };
 
 type Login = {
@@ -91,15 +92,13 @@ class CustomerStore {
       );
       await Swal.fire("Register Success!", "สมัครสมาชิกเรียบร้อย!", "success");
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
   async loginCustomer(infoLogin: Login) {
@@ -114,21 +113,17 @@ class CustomerStore {
       );
       sessionStorage.setItem("token", JSON.stringify(response.data.token));
       this.customerLogin = response.data;
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
-      console.log(err);
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log("err", err);
       throw err;
     }
   }
   async loginGoogle(tokenId: string, googleId: string) {
-  
-    
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_AUTH}/login-google`,
@@ -141,14 +136,13 @@ class CustomerStore {
       console.log("logingoogle");
 
       this.customerLogin = response.data;
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -166,14 +160,13 @@ class CustomerStore {
       console.log(response.data);
 
       this.customerLogin = response.data;
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -209,16 +202,14 @@ class CustomerStore {
       );
       Swal.fire("แก้ไขข้อมูลสำเร็จ!", "", "success");
       this.getCustomer();
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
   logout() {
@@ -246,14 +237,13 @@ class CustomerStore {
         "success"
       );
       this.logout();
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       throw err;
     }
   }

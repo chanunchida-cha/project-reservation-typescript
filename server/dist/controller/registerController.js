@@ -23,14 +23,14 @@ const createAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const { username, firstname, lastname, email, phoneNumber, password, confirmPass, } = req.body;
         if (!(username && email && phoneNumber && password && confirmPass)) {
-            res.status(400).json({ error: "All input is requires" });
+            return res.status(400).json({ error: "All input is requires" });
         }
         const oldAdmin = yield adminDB_1.default.findOne({ email, username });
         if (oldAdmin) {
-            res.status(400).json({ error: "Admin already exist" });
+            return res.status(400).json({ error: "บัญชีนี้มีผู้ใช้งานแล้ว" });
         }
         if (password != confirmPass) {
-            res.status(400).json({ error: "Please check password" });
+            return res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่าน" });
         }
         const encrytedPassword = yield bcrypt.hash(password, 10);
         const encrytedConfirmPassword = yield bcrypt.hash(confirmPass, 10);
@@ -68,14 +68,14 @@ const createPartner = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             confirmPass &&
             phoneNumber &&
             address)) {
-            res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
+            return res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
         }
         const oldAdmin = yield partnerDB_1.default.findOne({ email, username });
         if (oldAdmin) {
-            res.status(400).json({ error: "มีผู้ใช้งานแล้ว" });
+            return res.status(400).json({ error: "มีผู้ใช้งานแล้ว" });
         }
         if (password != confirmPass) {
-            res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
+            return res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
         }
         const encrytedPassword = yield bcrypt.hash(password, 10);
         const encrytedConfirmPassword = yield bcrypt.hash(confirmPass, 10);
@@ -107,14 +107,14 @@ const createCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const { username, firstname, lastname, email, phoneNumber, password, confirmPass, } = req.body;
         if (!(username && email && phoneNumber && password && confirmPass)) {
-            res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
+            return res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
         }
         const oldUser = yield userDB_1.default.findOne({ email, username });
         if (oldUser) {
-            res.status(400).json({ error: "มีผู้ใช้แล้ว" });
+            return res.status(400).json({ error: "มีผู้ใช้แล้ว" });
         }
         if (password != confirmPass) {
-            res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
+            return res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
         }
         const encrytedPassword = yield bcrypt.hash(password, 10);
         const encrytedConfirmPassword = yield bcrypt.hash(confirmPass, 10);

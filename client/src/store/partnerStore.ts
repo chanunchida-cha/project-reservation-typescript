@@ -14,6 +14,8 @@ type Partner = {
   confirmPass: string;
   restaurantName?: string;
   address?: string;
+  status?:string
+  note?:string
 };
 
 type Login = {
@@ -69,11 +71,11 @@ type Menu = {
   price: string;
   image: string;
 };
-type Password ={
-  oldPassword : string,
-  newPassword:string,
-  confirmPassword : string
-}
+type Password = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
 
 class PartnerStore {
   partnerLogin: Partner | undefined = undefined;
@@ -119,6 +121,7 @@ class PartnerStore {
       confirmPass: "",
       restaurantName: "",
       address: "",
+      status:""
     },
   };
   partnerInfoById: Info = {
@@ -143,6 +146,7 @@ class PartnerStore {
       confirmPass: "",
       restaurantName: "",
       address: "",
+      status:""
     },
   };
   tables: Table[] = [];
@@ -192,17 +196,19 @@ class PartnerStore {
         phoneNumber: phoneNumber,
         address: address,
       });
-      await Swal.fire("Register Success!", "register success!", "success");
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire(
+        "Register Success!",
+        "สมัครสมาชิกเรียบร้อยแล้ว!",
+        "success"
+      );
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
   async loginPartner(infoLogin: Login) {
@@ -217,14 +223,13 @@ class PartnerStore {
       );
       sessionStorage.setItem("token", JSON.stringify(response.data.token));
       this.partnerLogin = response.data;
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "มีข้อผิดพลาด",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -247,7 +252,7 @@ class PartnerStore {
     sessionStorage.removeItem("token");
   }
 
-  async resetPassword(allPassword:Password) {
+  async resetPassword(allPassword: Password) {
     const { oldPassword, newPassword, confirmPassword } = allPassword;
     try {
       await axios.put(
@@ -267,14 +272,13 @@ class PartnerStore {
         "success"
       );
       this.logout();
-    } catch (err) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+
       throw err;
     }
   }
@@ -295,16 +299,14 @@ class PartnerStore {
         "success"
       );
       this.getInfoRestaurant();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "มีข้อผิดพลาด",
-          text: err.message,
-        });
-        console.log(err.message);
-        throw err;
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
 
@@ -351,16 +353,14 @@ class PartnerStore {
         "success"
       );
       this.getInfoRestaurant();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "มีข้อผิดพลาด",
-          text: err.message,
-        });
-        console.log(err.message);
-        throw err;
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+
+      throw err;
     }
   }
   //----------------------table-----------------------------------------
@@ -383,14 +383,13 @@ class PartnerStore {
         "create customer success!",
         "success"
       );
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "มีข้อผิดพลาด",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -415,13 +414,12 @@ class PartnerStore {
         "success"
       );
     } catch (err: any) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "มีข้อผิดพลาด",
-          text: err.message,
-        });
-      }
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+
       console.log(err);
       throw err;
     }
@@ -471,14 +469,12 @@ class PartnerStore {
       );
       Swal.fire("ลบข้อมูลโต๊ะเรียบร้อยแล้ว!", response.data.message, "success");
       this.getTableByRest();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "กรุณาตรวจสอบใหม่อีกครั้ง",
+        text: err.response.data.error,
+      });
     }
   }
   //-------------------------menu------------------------------------------
@@ -497,16 +493,14 @@ class PartnerStore {
         "success"
       );
       this.getMenuByRest();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "มีข้อผิดพลาด",
-          text: err.message,
-        });
-        console.log(err.message);
-        throw err;
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+
+      throw err;
     }
   }
   async updateMenu(id: string, formData: FormData) {
@@ -524,16 +518,14 @@ class PartnerStore {
         "success"
       );
       this.getMenuByRest();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "มีข้อผิดพลาด",
-          text: err.message,
-        });
-        console.log(err.message);
-        throw err;
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+
+      throw err;
     }
   }
   async getMenuByRest() {
@@ -586,14 +578,12 @@ class PartnerStore {
         "success"
       );
       this.getMenuByRest();
-    } catch (err) {
-      if (err instanceof Error) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: err.message,
-        });
-      }
+    } catch (err: any) {
+      Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
     }
   }
 }

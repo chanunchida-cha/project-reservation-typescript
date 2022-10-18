@@ -220,9 +220,7 @@ const AllDayAllData = observer(() => {
                     </td>
                   )}
                   <td
-                    onClick={() => {
-                      navigate(`/partner/reserv/allday/${reserv._id}`);
-                    }}
+                   
                     className="px-2 py-3 border-b border-gray-200  text-sm text-center "
                   >
                     <div className="flex items-center justify-center p-2">

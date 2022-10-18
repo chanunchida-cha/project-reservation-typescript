@@ -250,14 +250,14 @@ function EditRound(
                     onClick={(event: MouseEvent<HTMLButtonElement>) => {
                       handleAddFields(event);
                     }}
-                    className=" py-2 px-3 border ml-2 mt-2 border-transparent text-sm font-medium rounded-md text-white bg-[#1890ff] hover:bg-[#40a9ff] "
+                    className=" py-2 px-3 border ml-2 mt-2 border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 "
                   >
                     เพิ่มรอบการจอง
                   </button>
                   <button
                     disabled={inputFields.length === 1}
                     onClick={() => handleRemoveFields(index)}
-                    className=" py-2 px-3 border ml-2 mt-2 border-transparent text-sm font-medium rounded-md text-white bg-[#FF4D4F] hover:bg-[#f76d6f] "
+                    className=" py-2 px-3 border ml-2 mt-2 border-transparent text-sm font-medium rounded-md text-white bg-red-700 hover:bg-red-800 "
                   >
                     ลบ
                   </button>

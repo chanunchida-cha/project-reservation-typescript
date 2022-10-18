@@ -1,10 +1,9 @@
-import { Response, Request} from "express";
+import { Response, Request } from "express";
 import admins from "../models/adminDB";
 import partners from "../models/partnerDB";
 import Users from "../models/userDB";
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 
 //----------------------------------admin-------------------------------------
 export const createAdmin = async (req: Request, res: Response) => {
@@ -19,14 +18,14 @@ export const createAdmin = async (req: Request, res: Response) => {
       confirmPass,
     } = req.body;
     if (!(username && email && phoneNumber && password && confirmPass)) {
-      res.status(400).json({ error: "All input is requires" });
+      return res.status(400).json({ error: "All input is requires" });
     }
     const oldAdmin = await admins.findOne({ email, username });
     if (oldAdmin) {
-      res.status(400).json({ error: "Admin already exist" });
+      return res.status(400).json({ error: "บัญชีนี้มีผู้ใช้งานแล้ว" });
     }
     if (password != confirmPass) {
-      res.status(400).json({ error: "Please check password" });
+      return res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่าน" });
     }
 
     const encrytedPassword = await bcrypt.hash(password, 10);
@@ -85,14 +84,14 @@ export const createPartner = async (req: Request, res: Response) => {
         address
       )
     ) {
-      res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
+      return res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
     }
     const oldAdmin = await partners.findOne({ email, username });
     if (oldAdmin) {
-      res.status(400).json({ error: "มีผู้ใช้งานแล้ว" });
+      return res.status(400).json({ error: "มีผู้ใช้งานแล้ว" });
     }
     if (password != confirmPass) {
-      res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
+      return res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
     }
 
     const encrytedPassword = await bcrypt.hash(password, 10);
@@ -139,14 +138,14 @@ export const createCustomer = async (req: Request, res: Response) => {
       confirmPass,
     } = req.body;
     if (!(username && email && phoneNumber && password && confirmPass)) {
-      res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
+      return res.status(400).json({ error: "กรุณากรอกข้อมูลให้ครบ" });
     }
     const oldUser = await Users.findOne({ email, username });
     if (oldUser) {
-      res.status(400).json({ error: "มีผู้ใช้แล้ว" });
+      return res.status(400).json({ error: "มีผู้ใช้แล้ว" });
     }
     if (password != confirmPass) {
-      res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
+      return res.status(400).json({ error: "กรุณาตรวจสอบรหัสผ่านอีกครั้ง" });
     }
 
     const encrytedPassword = await bcrypt.hash(password, 10);
@@ -178,4 +177,3 @@ export const createCustomer = async (req: Request, res: Response) => {
     console.log(err);
   }
 };
-

@@ -1,4 +1,3 @@
-
 const allDayReservs = require("./../models/allDayReservDB");
 const mongoose = require("mongoose");
 import { Response, Request } from "express";
@@ -15,7 +14,7 @@ export const customerAllDayReserv = async (req: Request, res: Response) => {
     const { partner_id, day, start, amount, customer_id } = req.body;
     const partnerId = mongoose.Types.ObjectId(partner_id);
     const customerId = mongoose.Types.ObjectId(customer_id);
-    const partnerInfo:Info = await restaurants.findOne({
+    const partnerInfo: Info = await restaurants.findOne({
       partner_id: partnerId,
     });
     const endTime =
@@ -138,21 +137,21 @@ export const customerAllDayReserv = async (req: Request, res: Response) => {
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remaining_tables.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     }
@@ -184,7 +183,7 @@ export const updateCustomerAllDayReserv = async (
     const { partner_id, day, start, amount, customer_id, table } = req.body;
     const partnerId = mongoose.Types.ObjectId(partner_id);
 
-    const partnerInfo:Info = await restaurants.findOne({
+    const partnerInfo: Info = await restaurants.findOne({
       partner_id: partnerId,
     });
     const endTime =
@@ -363,21 +362,21 @@ export const updateCustomerAllDayReserv = async (
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remain_n.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     } else if (duplicateTable.length >= 1) {
@@ -414,7 +413,7 @@ export const selfAllDayReserv = async (req: Request, res: Response) => {
     const { partner_id, day, start, amount, self_reserv } = req.body;
     const partnerId = mongoose.Types.ObjectId(partner_id);
 
-    const partnerInfo:Info = await restaurants.findOne({
+    const partnerInfo: Info = await restaurants.findOne({
       partner_id: partnerId,
     });
     const endTime =
@@ -537,21 +536,21 @@ export const selfAllDayReserv = async (req: Request, res: Response) => {
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remaining_tables.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     }
@@ -580,7 +579,7 @@ export const updateSelfAllDayReserv = async (req: Request, res: Response) => {
     const { partner_id, day, start, amount, self_reserv, table } = req.body;
     const partnerId = mongoose.Types.ObjectId(partner_id);
 
-    const partnerInfo:Info = await restaurants.findOne({
+    const partnerInfo: Info = await restaurants.findOne({
       partner_id: partnerId,
     });
     const endTime =
@@ -630,7 +629,7 @@ export const updateSelfAllDayReserv = async (req: Request, res: Response) => {
 
     let newTables: string[] = [];
     let seatAmount = Number(amount);
-  
+
     reservs.forEach((reserv: AllDayReserv) => {
       reserv.table.forEach((table) => {
         reserved_tables.push(table);
@@ -755,21 +754,21 @@ export const updateSelfAllDayReserv = async (req: Request, res: Response) => {
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (
       partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
       new Date(start).toLocaleTimeString("it-IT")
     ) {
       return res
         .status(400)
-        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+        .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
     } else if (remain_n.length === 0) {
       return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
     } else if (duplicateTable.length >= 1) {
@@ -810,7 +809,7 @@ export const getAllDayReserv = async (req: Request, res: Response) => {
           partner_id: id,
         },
       },
-    
+
       {
         $lookup: {
           from: "users",
@@ -818,9 +817,7 @@ export const getAllDayReserv = async (req: Request, res: Response) => {
           foreignField: "_id",
           as: "customer",
         },
-        
       },
-    
     ])
     .then((response: AllDayReserv[]) => {
       res.json(response);
@@ -867,7 +864,7 @@ export const getAllDayReservByID = (req: Request, res: Response) => {
           _id: mongoose.Types.ObjectId(id),
         },
       },
-      
+
       {
         $lookup: {
           from: "users",
@@ -875,8 +872,7 @@ export const getAllDayReservByID = (req: Request, res: Response) => {
           foreignField: "_id",
           as: "customer",
         },
-      }
-      
+      },
     ])
     .then((response: AllDayReserv[]) => {
       res.json(response[0]);

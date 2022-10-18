@@ -105,19 +105,19 @@ const customerRoundReserv = (req, res) => __awaiter(void 0, void 0, void 0, func
         if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].type === "close") {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (remaining_tables.length === 0) {
             return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
@@ -272,19 +272,19 @@ const updateCustomerRoundReserv = (req, res) => __awaiter(void 0, void 0, void 0
         if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].type === "close") {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (remain_n.length === 0) {
             return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
@@ -405,19 +405,19 @@ const selfRoundReserv = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].type === "close") {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (remaining_tables.length === 0) {
             return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });
@@ -572,19 +572,19 @@ const updateSelfRoundReserv = (req, res) => __awaiter(void 0, void 0, void 0, fu
         if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].type === "close") {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด1" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].end <=
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด2" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (partnerInfo.openday[dayOfWeekName.toLocaleLowerCase()].start >
             new Date(start).toLocaleTimeString("it-IT")) {
             return res
                 .status(400)
-                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด3" });
+                .json({ error: "ไม่สามารถจองคิวได้ เนื่องจากร้านปิด" });
         }
         else if (remain_n.length === 0) {
             return res.status(400).json({ error: "รอบเวลานี้ โต๊ะเต็มแล้ว" });

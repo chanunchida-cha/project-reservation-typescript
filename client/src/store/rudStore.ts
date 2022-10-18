@@ -118,15 +118,13 @@ class RudStore {
       Swal.fire("แก้ไขข้อมูลสำเร็จ!", "", "success");
       this.getAllCustomer();
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
 
@@ -142,15 +140,13 @@ class RudStore {
       );
       this.getAllCustomer();
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.message,
+      });
+      console.log(err);
+      throw err;
     }
   }
   //-----------------partner----------------------------
@@ -259,15 +255,13 @@ class RudStore {
       this.getPartnerVerify();
       this.getPartnerDisApprove();
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
   async deletePartner(id: string) {
@@ -276,7 +270,7 @@ class RudStore {
         `${process.env.REACT_APP_API_RUD}/delete-partner/${id}`
       );
       Swal.fire(
-        "ลบข้อมูลผู้ดูแลระบบเรียบร้อยแล้ว!",
+        "ลบข้อมูลร้านอาหารเรียบร้อยแล้ว!",
         response.data.message,
         "success"
       );
@@ -284,15 +278,13 @@ class RudStore {
       this.getPartnerVerify();
       this.getPartnerDisApprove();
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
   //---------------admin-----------------------------
@@ -347,15 +339,13 @@ class RudStore {
       Swal.fire("แก้ไขข้อมูลสำเร็จ!", "", "success");
       this.getAllAdmin();
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "Sorry",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
   async deleteAdmin(id: string) {
@@ -370,15 +360,13 @@ class RudStore {
       );
       this.getAllAdmin();
     } catch (err: any) {
-      if (err instanceof Error) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sorry",
-          text: err.message,
-        });
-        console.log(err);
-        throw err;
-      }
+      await Swal.fire({
+        icon: "error",
+        title: "มีข้อผิดพลาด",
+        text: err.response.data.error,
+      });
+      console.log(err);
+      throw err;
     }
   }
 }

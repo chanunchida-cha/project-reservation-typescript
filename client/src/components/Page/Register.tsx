@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useState, ChangeEvent } from "react";
-import { useParams } from "react-router-dom";
+import { useParams ,useNavigate} from "react-router-dom";
 import { customerStore } from "../../store/customerStore";
 import { partnerStore } from "../../store/partnerStore";
 
@@ -31,6 +31,7 @@ const startinfoPartner = {
 };
 
 const Register = observer(() => {
+  const navigate = useNavigate()
   const { role } = useParams();
   const [info, setInfo] = useState<Information>(
     role === "customer" ? startinfoCustomer : startinfoPartner
@@ -52,6 +53,7 @@ const Register = observer(() => {
     } else if (role === "partner") {
       await partnerStore.createPartner(info);
     }
+    navigate("/")
   }
 
   return (

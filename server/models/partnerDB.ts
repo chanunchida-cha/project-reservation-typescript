@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { ObjectId } from "mongoose";
 
-export type Partner={
+export type Partner = {
   _id: ObjectId;
   username: string;
   firstname: string;
@@ -14,13 +14,12 @@ export type Partner={
   restaurantName?: string;
   note?: string;
   status?: string;
-}
+};
 
 const partnerSchema = new mongoose.Schema({
   restaurantName: {
     type: String,
     required: true,
-    unique: true,
   },
   firstname: {
     type: String,
@@ -33,7 +32,6 @@ const partnerSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
