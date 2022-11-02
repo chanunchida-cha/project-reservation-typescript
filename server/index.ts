@@ -15,12 +15,26 @@ import customerRoute from "./routes/customerRoute";
 import adminRoute from "./routes/adminRoute";
 import reportPartnerRoute from "./routes/reportPartnerRoute";
 import reportAdminRoute from "./routes/reportAdminRoute";
+const path = require("path");
 
 require("dotenv").config();
 
 const app: Express = express();
-const port = process.env.PORT || 8080;
 
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname,'../build')))
+
+  app.get("*" , (req,res)=>{
+    res.sendFile(path.join(__dirname,"../build/index.html"))
+  })
+}
+
+//PORT
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+});
 //connect DB
 mongoose
   .connect(process.env.DATABASE, {
@@ -54,7 +68,3 @@ app.use("/history", historyReservRoute);
 app.use("/report", reportPartnerRoute);
 app.use("/report", reportAdminRoute);
 app.use("/uploads", express.static("uploads"));
-
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
-});
